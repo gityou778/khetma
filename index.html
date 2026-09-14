@@ -1,0 +1,2154 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <script>
+    // Safeguard for preview container wrappers or extensions attempting to reassign window.fetch
+    (function() {
+      try {
+        const desc = Object.getOwnPropertyDescriptor(window, 'fetch') || 
+                     Object.getOwnPropertyDescriptor(Object.getPrototypeOf(window), 'fetch') ||
+                     Object.getOwnPropertyDescriptor(window.__proto__ || {}, 'fetch');
+        if (desc && !desc.writable && !desc.set) {
+          let currentFetch = window.fetch;
+          try {
+            Object.defineProperty(window, 'fetch', {
+              get() { return currentFetch; },
+              set(fn) { currentFetch = fn; },
+              configurable: true,
+              enumerable: true
+            });
+          } catch (e) {}
+        }
+      } catch (err) {}
+    })();
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>إهداء ثواب الأعمال الصالحة - الحاجة مسعودة عبدالحميد</title>
+  <meta name="description" content="موقع لإهداء ثواب ختمة القرآن الكريم والتسبيح لروح المرحومة بإذن الله الحاجة مسعودة عبدالحميد" />
+  <meta property="og:title" content="إهداء ثواب الأعمال الصالحة - الحاجة مسعودة عبدالحميد" />
+  <meta property="og:description" content="موقع لإهداء ثواب ختمة القرآن الكريم والتسبيح لروح المرحومة بإذن الله الحاجة مسعودة عبدالحميد" />
+  <meta property="og:type" content="website" />
+
+  <!-- Google Fonts: Cairo للنصوص العادية، و Amiri / Aref Ruqaa للعناوين الدينية والزخرفة -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@400;500;600;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ==========================================================================
+       التنسيقات اسية والمتغيرات اللونية (CSS Reset & Theme)
+       ========================================================================== */
+    :root {
+      --bg-dark-900: #04140e;
+      --bg-dark-800: #082117;
+      --bg-dark-700: #0e2f22;
+      --bg-card: linear-gradient(160deg, #0a2c1f 0%, #061e15 100%);
+      --bg-card-hover: linear-gradient(160deg, #0d3827 0%, #08241a 100%);
+      --gold-100: #fbf5df;
+      --gold-200: #f3e5b3;
+      --gold-300: #e7cf82;
+      --gold-400: #d8b753;
+      --gold-500: #c59d33;
+      --gold-600: #a47e24;
+      --text-white: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-green-light: #86efac;
+      --border-gold: rgba(216, 183, 83, 0.35);
+      --border-gold-glow: rgba(216, 183, 83, 0.6);
+      --shadow-gold: 0 4px 20px rgba(197, 157, 51, 0.15);
+      --shadow-card: 0 12px 40px -8px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(216, 183, 83, 0.2);
+      --font-body: 'Cairo', 'Tajawal', sans-serif;
+      --font-title: 'Amiri', 'Aref Ruqaa', serif;
+      --font-calligraphy: 'Aref Ruqaa', 'Amiri', cursive;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      width: 100%;
+      min-height: 100%;
+      background-color: var(--bg-dark-900);
+      background-image: 
+        radial-gradient(ellipse at 50% 0%, rgba(14, 62, 45, 0.6) 0%, transparent 70%),
+        radial-gradient(circle at 100% 100%, rgba(8, 33, 23, 0.7) 0%, transparent 50%),
+        radial-gradient(circle at 0% 50%, rgba(10, 44, 31, 0.5) 0%, transparent 50%);
+      background-attachment: fixed;
+      color: var(--text-white);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      overflow-x: hidden;
+      direction: rtl;
+      text-align: right;
+      /* إخفاء شريط التمرير على جميع المتصفحات مع استمرار إمكانية التمرير */
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE and Edge */
+    }
+
+    /* إخفاء شريط التمرير على متصفحات WebKit (Chrome, Safari, Edge الحديثة) */
+    html::-webkit-scrollbar,
+    body::-webkit-scrollbar,
+    *::-webkit-scrollbar {
+      display: none;
+      width: 0 !important;
+      height: 0 !important;
+      background: transparent !important;
+    }
+
+    * {
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    /* ==========================================================================
+       شريط التنقل الثابت في أعلى الصفحة (Fixed Navbar)
+       يحتوي على كلمتين فقط: "الختمة" و "التسبيح"
+       ========================================================================== */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      z-index: 1000;
+      background: rgba(4, 20, 14, 0.85);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .nav-container {
+      width: 100%;
+      max-width: 480px;
+      padding: 0 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .nav-btn {
+      position: relative;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-family: var(--font-title);
+      font-size: 1.35rem;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 0.5rem 1.25rem;
+      transition: all 0.25s ease;
+      white-space: nowrap;
+      letter-spacing: 0.5px;
+      outline: none;
+    }
+
+    .nav-btn:hover {
+      color: var(--gold-200);
+    }
+
+    .nav-btn.active {
+      color: var(--gold-300);
+      text-shadow: 0 0 15px rgba(216, 183, 83, 0.45);
+    }
+
+    /* الخط السفلي المميز للقسم النشط */
+    .nav-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 15%;
+      right: 15%;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--gold-400), transparent);
+      border-radius: 9999px;
+      box-shadow: 0 0 8px var(--gold-400);
+    }
+
+    /* ==========================================================================
+       الحاوية الرئيسية للصفحة (Main Content Container)
+       ========================================================================== */
+    .main-wrapper {
+      width: 100%;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 84px 1rem 3rem 1rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* الأقسام التفاعلية (Tabs) */
+    .section-view {
+      width: 100%;
+      display: none;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+
+    .section-view.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ==========================================================================
+       كارت الإهداء الديني الرئيسي (Dedication Card)
+       خلفية داكنة بتدرج أخضر إسلامي غامق + سيلويت مئذنة ومسجد في الخلفية
+       ========================================================================== */
+    .memorial-card {
+      position: relative;
+      background: var(--bg-card);
+      border-radius: 20px;
+      padding: 2.25rem 1.5rem 2rem 1.5rem;
+      box-shadow: var(--shadow-card);
+      border: 1px solid var(--border-gold);
+      overflow: hidden;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    /* سيلويت المئذنة والمسجد في خلفية الكارت */
+    .mosque-backdrop {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      opacity: 0.08;
+      z-index: 1;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .mosque-backdrop svg {
+      width: 110%;
+      height: 90%;
+      fill: var(--gold-300);
+      transform: translateY(15%);
+    }
+
+    /* زخرفة النجوم الإسلامية الرقيقة في الزوايا */
+    .card-corner-ornament {
+      position: absolute;
+      width: 48px;
+      height: 48px;
+      opacity: 0.35;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .card-corner-ornament.top-right { top: 12px; right: 12px; }
+    .card-corner-ornament.top-left { top: 12px; left: 12px; transform: scaleX(-1); }
+
+    .card-content {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* البسملة والعنوان الذهبي */
+    .bismillah {
+      font-family: var(--font-title);
+      color: var(--gold-400);
+      font-size: 1.15rem;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.5rem;
+      opacity: 0.9;
+    }
+
+    .card-title {
+      font-family: var(--font-calligraphy);
+      font-size: 2.1rem;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(180deg, #ffffff 0%, var(--gold-200) 40%, var(--gold-400) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
+    }
+
+    /* إطار صورة المتوفى الدائرية باللون الذهبي */
+    .deceased-photo-wrap {
+      position: relative;
+      width: 128px;
+      height: 128px;
+      margin: 0 auto 1.5rem auto;
+      border-radius: 50%;
+      padding: 4px;
+      background: linear-gradient(145deg, var(--gold-300), var(--gold-600), var(--gold-400));
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 16px rgba(216, 183, 83, 0.3);
+    }
+
+    .deceased-photo-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      background: var(--bg-dark-900);
+      border: 2px solid rgba(4, 20, 14, 0.8);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .deceased-photo-inner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    .deceased-photo-inner .fallback-icon {
+      display: none;
+      width: 60%;
+      height: 60%;
+      color: var(--gold-300);
+      opacity: 0.85;
+    }
+
+    /* نص إهداء الثواب */
+    .dedication-box {
+      background: rgba(4, 20, 14, 0.45);
+      border: 1px solid rgba(216, 183, 83, 0.2);
+      border-radius: 14px;
+      padding: 1.15rem 1.25rem;
+      margin-bottom: 1.75rem;
+      width: 100%;
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.25);
+    }
+
+    .dedication-text {
+      font-family: var(--font-title);
+      font-size: 1.25rem;
+      color: #e2e8f0;
+      line-height: 1.7;
+    }
+
+    .deceased-highlight-name {
+      color: var(--gold-300);
+      font-weight: 700;
+      display: inline-block;
+      border-bottom: 1px dashed rgba(216, 183, 83, 0.5);
+      padding: 0 4px;
+    }
+
+    .dedication-subtext {
+      font-size: 0.9rem;
+      color: var(--text-green-light);
+      margin-top: 0.35rem;
+      opacity: 0.85;
+    }
+
+    /* ==========================================================================
+       القائمة المنسدلة لاختيار الجزء (Juz Selector Dropdown)
+       ========================================================================== */
+    .juz-selection-wrap {
+      width: 100%;
+      margin-bottom: 1.5rem;
+      text-align: right;
+    }
+
+    .field-label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--gold-300);
+      margin-bottom: 0.5rem;
+      padding-right: 4px;
+    }
+
+    .select-styled-container {
+      position: relative;
+      width: 100%;
+    }
+
+    .juz-select {
+      width: 100%;
+      appearance: none;
+      -webkit-appearance: none;
+      background: rgba(5, 25, 17, 0.95);
+      color: var(--text-white);
+      border: 1.5px solid var(--border-gold);
+      border-radius: 12px;
+      padding: 0.9rem 2.75rem 0.9rem 1.25rem;
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      font-weight: 600;
+      cursor: pointer;
+      outline: none;
+      transition: all 0.25s ease;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .juz-select:focus {
+      border-color: var(--gold-400);
+      box-shadow: 0 0 0 3px rgba(216, 183, 83, 0.25), inset 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .select-arrow {
+      position: absolute;
+      top: 50%;
+      right: 1rem;
+      transform: translateY(-50%);
+      pointer-events: none;
+      color: var(--gold-400);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ==========================================================================
+       مشغل الصوت المخصص (Custom Audio Player)
+       ========================================================================== */
+    .audio-player-card {
+      width: 100%;
+      background: rgba(3, 16, 11, 0.85);
+      border: 1px solid rgba(216, 183, 83, 0.25);
+      border-radius: 16px;
+      padding: 1.35rem;
+      margin-bottom: 1.25rem;
+      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.4);
+    }
+
+    .player-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .player-info {
+      text-align: right;
+    }
+
+    .current-juz-title {
+      font-family: var(--font-title);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--gold-200);
+      line-height: 1.3;
+    }
+
+    .reciter-name {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .player-status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      color: var(--gold-300);
+      background: rgba(216, 183, 83, 0.12);
+      border: 1px solid rgba(216, 183, 83, 0.25);
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-weight: 600;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      background-color: #22c55e;
+      border-radius: 50%;
+      box-shadow: 0 0 6px #22c55e;
+    }
+
+    /* شريط التقدم */
+    .progress-section {
+      width: 100%;
+      margin-bottom: 1.15rem;
+    }
+
+    .progress-bar-wrap {
+      position: relative;
+      width: 100%;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 9999px;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 0%;
+      background: linear-gradient(90deg, var(--gold-500), var(--gold-300));
+      border-radius: 9999px;
+      transition: width 0.1s linear;
+      box-shadow: 0 0 10px rgba(216, 183, 83, 0.5);
+    }
+
+    .time-display {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-variant-numeric: tabular-nums;
+      margin-top: 6px;
+      direction: ltr; /* لعرض الوقت 00:00 بشكل قياسي */
+    }
+
+    /* أزرار التحكم في التشغيل */
+    .controls-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+    }
+
+    .ctrl-btn {
+      background: none;
+      border: none;
+      color: var(--gold-300);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      transition: all 0.2s ease;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(216, 183, 83, 0.2);
+    }
+
+    .ctrl-btn:hover {
+      background: rgba(216, 183, 83, 0.15);
+      color: var(--gold-100);
+      transform: scale(1.05);
+    }
+
+    .ctrl-btn:active {
+      transform: scale(0.95);
+    }
+
+    .play-main-btn {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, var(--gold-300), var(--gold-500));
+      border: 2px solid var(--gold-200);
+      color: var(--bg-dark-900);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 18px rgba(216, 183, 83, 0.4);
+      transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .play-main-btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 6px 24px rgba(216, 183, 83, 0.6);
+      background: linear-gradient(145deg, var(--gold-200), var(--gold-400));
+    }
+
+    .play-main-btn:active {
+      transform: scale(0.95);
+    }
+
+    /* زر التحميل للاستماع بدون إنترنت */
+    .download-link-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      width: 100%;
+      padding: 0.95rem 1.25rem;
+      background: rgba(14, 47, 34, 0.8);
+      color: var(--gold-200);
+      border: 1.5px solid var(--border-gold);
+      border-radius: 14px;
+      font-size: 1rem;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .download-link-btn:hover {
+      background: rgba(216, 183, 83, 0.15);
+      border-color: var(--gold-400);
+      color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(216, 183, 83, 0.25);
+    }
+
+    .download-link-btn:active {
+      transform: translateY(0);
+    }
+
+    /* ==========================================================================
+       قسم التسبيح (Tasbeeh Section)
+       السبحة التفاعلية بـ SVG، العداد الرقمي، أزرار التحكم
+       ========================================================================== */
+    .tasbeeh-card {
+      position: relative;
+      background: var(--bg-card);
+      border-radius: 20px;
+      padding: 2.25rem 1.5rem 2rem 1.5rem;
+      box-shadow: var(--shadow-card);
+      border: 1px solid var(--border-gold);
+      overflow: hidden;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    /* اختيار الذكر (Dhikr Selector Pills) */
+    .dhikr-chips-scroll {
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+      padding-bottom: 0.75rem;
+      margin-bottom: 1.5rem;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(216, 183, 83, 0.3) transparent;
+      -webkit-overflow-scrolling: touch;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .dhikr-chip {
+      background: rgba(5, 25, 17, 0.85);
+      border: 1px solid rgba(216, 183, 83, 0.25);
+      color: var(--text-white);
+      padding: 0.45rem 1rem;
+      border-radius: 9999px;
+      font-size: 0.95rem;
+      font-family: var(--font-title);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      outline: none;
+    }
+
+    .dhikr-chip:hover {
+      border-color: var(--gold-400);
+      color: var(--gold-200);
+    }
+
+    .dhikr-chip.active {
+      background: linear-gradient(135deg, rgba(216, 183, 83, 0.25), rgba(197, 157, 51, 0.1));
+      border-color: var(--gold-400);
+      color: var(--gold-200);
+      box-shadow: 0 0 12px rgba(216, 183, 83, 0.25);
+      font-weight: 700;
+    }
+
+    /* الحاوية الدائرية لمسبحة الـ SVG التفاعلية */
+    .masbaha-interactive-wrapper {
+      position: relative;
+      width: 290px;
+      height: 290px;
+      margin: 0.5rem auto 1.5rem auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+    }
+
+    .masbaha-svg {
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.6));
+      transform-origin: center center;
+      transition: transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    /* خرزات السبحة */
+    .bead {
+      transition: transform 0.25s ease, fill 0.25s ease, filter 0.25s ease;
+      cursor: pointer;
+      transform-origin: center center;
+    }
+
+    .bead.active {
+      filter: drop-shadow(0 0 10px #fde047) drop-shadow(0 0 4px #ffffff);
+      transform: scale(1.4);
+    }
+
+    /* الزر والقرص الدائري في مركز السبحة */
+    .masbaha-center-disc {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 154px;
+      height: 154px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #0e3827 0%, #061e15 80%, #03120c 100%);
+      border: 2.5px solid var(--gold-400);
+      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8), 0 0 24px rgba(216, 183, 83, 0.2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem;
+      text-align: center;
+      transition: all 0.15s ease;
+    }
+
+    .masbaha-interactive-wrapper:active .masbaha-center-disc {
+      transform: translate(-50%, -50%) scale(0.96);
+      box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.9), 0 0 30px rgba(216, 183, 83, 0.45);
+      border-color: var(--gold-200);
+    }
+
+    .center-dhikr-label {
+      font-family: var(--font-title);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--gold-200);
+      line-height: 1.2;
+      margin-bottom: 2px;
+    }
+
+    .center-tap-hint {
+      font-size: 0.75rem;
+      color: var(--text-green-light);
+      opacity: 0.8;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* عرض العدد الكلي الرقمي */
+    .counter-display-card {
+      background: rgba(4, 20, 14, 0.6);
+      border: 1px solid rgba(216, 183, 83, 0.25);
+      border-radius: 16px;
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.35);
+    }
+
+    .counter-value {
+      font-family: var(--font-body);
+      font-size: 3.5rem;
+      font-weight: 800;
+      line-height: 1;
+      background: linear-gradient(180deg, #ffffff 0%, var(--gold-200) 45%, var(--gold-400) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.5));
+      font-variant-numeric: tabular-nums;
+      margin-bottom: 0.35rem;
+      transition: transform 0.15s ease;
+    }
+
+    .counter-value.pulse-pop {
+      transform: scale(1.1);
+    }
+
+    .counter-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
+    /* أزرار التحكم في التسبيح (إعادة ضبط، تفعيل الصوت) */
+    .tasbeeh-actions-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      width: 100%;
+    }
+
+    .tasbeeh-secondary-btn {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.8rem 1rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(216, 183, 83, 0.25);
+      border-radius: 12px;
+      color: #cbd5e1;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      outline: none;
+    }
+
+    .tasbeeh-secondary-btn:hover {
+      background: rgba(216, 183, 83, 0.12);
+      border-color: var(--gold-400);
+      color: var(--gold-200);
+    }
+
+    .tasbeeh-secondary-btn:active {
+      transform: scale(0.97);
+    }
+
+    /* إشعار الاحتفال عند بلوغ 33 أو 100 تسبيحة */
+    .celebration-toast {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: linear-gradient(145deg, #0f3d2a, #062016);
+      border: 1.5px solid var(--gold-400);
+      border-radius: 9999px;
+      padding: 0.75rem 1.5rem;
+      color: var(--gold-100);
+      font-family: var(--font-title);
+      font-size: 1.1rem;
+      font-weight: 700;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(216, 183, 83, 0.4);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      pointer-events: none;
+      opacity: 0;
+      transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      white-space: nowrap;
+    }
+
+    .celebration-toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    /* نافذة تأكيد إعادة الضبط (Modal / Confirmation) */
+    .confirm-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(6px);
+      z-index: 3000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.25rem;
+    }
+
+    .confirm-overlay.show {
+      display: flex;
+    }
+
+    .confirm-box {
+      background: var(--bg-dark-800);
+      border: 1.5px solid var(--border-gold);
+      border-radius: 18px;
+      padding: 1.75rem;
+      max-width: 380px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+    }
+
+    .confirm-title {
+      font-family: var(--font-title);
+      font-size: 1.35rem;
+      color: var(--gold-200);
+      margin-bottom: 0.65rem;
+    }
+
+    .confirm-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .confirm-actions {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .confirm-btn-yes {
+      flex: 1;
+      padding: 0.75rem;
+      background: #dc2626;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-family: var(--font-body);
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .confirm-btn-no {
+      flex: 1;
+      padding: 0.75rem;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      font-family: var(--font-body);
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* تذييل الصفحة (Footer) */
+    .site-footer {
+      margin-top: 1.5rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      opacity: 0.75;
+      font-family: var(--font-title);
+    }
+
+    /* ==========================================================================
+       استجابة الشاشات الصغيرة وجميع مقاسات الموبايل (Complete Mobile Responsiveness)
+       ========================================================================== */
+    @media (max-width: 640px) {
+      .main-wrapper {
+        padding-top: 76px;
+        padding-left: 0.85rem;
+        padding-right: 0.85rem;
+        padding-bottom: 2.5rem;
+      }
+      .navbar {
+        height: 58px;
+      }
+      .nav-container {
+        gap: 1.5rem;
+      }
+      .nav-btn {
+        font-size: 1.25rem;
+        padding: 0.4rem 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .main-wrapper {
+        padding-top: 72px;
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+      }
+      .navbar {
+        height: 56px;
+      }
+      .memorial-card, .tasbeeh-card {
+        padding: 1.6rem 1rem 1.35rem 1rem;
+        border-radius: 18px;
+        margin-bottom: 1.25rem;
+      }
+      .card-title {
+        font-size: 1.75rem;
+        margin-bottom: 1.25rem;
+      }
+      .bismillah {
+        font-size: 1.05rem;
+      }
+      .deceased-photo-wrap {
+        width: 108px;
+        height: 108px;
+        margin-bottom: 1.25rem;
+      }
+      .dedication-box {
+        padding: 0.95rem 1rem;
+        margin-bottom: 1.35rem;
+        border-radius: 12px;
+      }
+      .dedication-text {
+        font-size: 1.12rem;
+        line-height: 1.65;
+      }
+      .dedication-subtext {
+        font-size: 0.85rem;
+        line-height: 1.55;
+      }
+      .audio-player-card {
+        padding: 1.1rem 0.9rem;
+        border-radius: 14px;
+      }
+      .current-juz-title {
+        font-size: 1.08rem;
+      }
+      .reciter-name {
+        font-size: 0.8rem;
+      }
+      .controls-row {
+        gap: 1rem;
+      }
+      .ctrl-btn {
+        width: 42px;
+        height: 42px;
+      }
+      .play-main-btn {
+        width: 56px;
+        height: 56px;
+      }
+      .download-link-btn {
+        padding: 0.85rem 1rem;
+        font-size: 0.92rem;
+      }
+      .dhikr-chips-scroll {
+        gap: 0.4rem;
+        margin-bottom: 1.25rem;
+      }
+      .dhikr-chip {
+        padding: 0.4rem 0.85rem;
+        font-size: 0.88rem;
+      }
+      .masbaha-interactive-wrapper {
+        width: 250px;
+        height: 250px;
+        margin-bottom: 1.25rem;
+      }
+      .masbaha-center-disc {
+        width: 132px;
+        height: 132px;
+        padding: 0.5rem;
+      }
+      .center-dhikr-label {
+        font-size: 1.05rem;
+      }
+      .counter-display-card {
+        padding: 1rem;
+        margin-bottom: 1.25rem;
+      }
+      .counter-value {
+        font-size: 2.8rem;
+      }
+      .tasbeeh-actions-row {
+        gap: 0.5rem;
+      }
+      .tasbeeh-secondary-btn {
+        padding: 0.75rem 0.7rem;
+        font-size: 0.88rem;
+      }
+    }
+
+    /* شاشات الموبايل الصغيرة جداً مثل iPhone SE و Galaxy Fold (أقل من 360px) */
+    @media (max-width: 360px) {
+      .main-wrapper {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+      }
+      .nav-container {
+        gap: 1rem;
+      }
+      .nav-btn {
+        font-size: 1.15rem;
+        padding: 0.35rem 0.75rem;
+      }
+      .memorial-card, .tasbeeh-card {
+        padding: 1.35rem 0.75rem 1.15rem 0.75rem;
+      }
+      .card-title {
+        font-size: 1.55rem;
+      }
+      .deceased-photo-wrap {
+        width: 96px;
+        height: 96px;
+      }
+      .dedication-text {
+        font-size: 1.02rem;
+      }
+      .dedication-subtext {
+        font-size: 0.8rem;
+      }
+      .juz-select {
+        font-size: 0.95rem;
+        padding: 0.8rem 2.2rem 0.8rem 0.9rem;
+      }
+      .controls-row {
+        gap: 0.75rem;
+      }
+      .ctrl-btn {
+        width: 38px;
+        height: 38px;
+      }
+      .play-main-btn {
+        width: 50px;
+        height: 50px;
+      }
+      .masbaha-interactive-wrapper {
+        width: 220px;
+        height: 220px;
+      }
+      .masbaha-center-disc {
+        width: 118px;
+        height: 118px;
+      }
+      .center-dhikr-label {
+        font-size: 0.95rem;
+      }
+      .counter-value {
+        font-size: 2.4rem;
+      }
+      .tasbeeh-secondary-btn {
+        padding: 0.65rem 0.5rem;
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================================================================
+       شريط التنقل العلوي الثابت (Fixed Navbar)
+       كلمتان فقط: "الختمة" و "التسبيح"
+       ======================================================================== -->
+  <nav class="navbar" aria-label="التنقل الرئيسي">
+    <div class="nav-container">
+      <button id="nav-quran-btn" class="nav-btn active" onclick="switchSection('quran')">
+        الختمة
+      </button>
+      <button id="nav-tasbeeh-btn" class="nav-btn" onclick="switchSection('tasbeeh')">
+        التسبيح
+      </button>
+    </div>
+  </nav>
+
+  <!-- ========================================================================
+       الحاوية الرئيسية للصفحة
+       ======================================================================== -->
+  <main class="main-wrapper">
+
+    <!-- ======================================================================
+         القسم الأول: قسم الختمة (يظهر افتراضيًا)
+         ====================================================================== -->
+    <section id="section-quran" class="section-view active" aria-labelledby="quran-heading">
+      
+      <!-- كارت الإهداء بالتصميم المطلوب بدقة -->
+      <article class="memorial-card">
+
+        <!-- سيلويت المسجد والمئذنة في خلفية الكارت (Vector Silhouette) -->
+        <div class="mosque-backdrop" aria-hidden="true">
+          <svg viewBox="0 0 1000 500" preserveAspectRatio="none">
+            <!-- مسارات زخرفية لمآذن وقباب إسلامية -->
+            <path d="M0,500 L0,380 L60,380 L60,260 L75,230 L90,260 L90,380 L160,380 L160,340 C160,300 240,300 240,340 L240,380 L320,380 L320,160 L335,120 L350,160 L350,380 L400,380 C400,280 600,280 600,380 L650,380 L650,160 L665,120 L680,160 L680,380 L760,380 L760,340 C760,300 840,300 840,340 L840,380 L910,380 L910,260 L925,230 L940,260 L940,380 L1000,380 L1000,500 Z"></path>
+          </svg>
+        </div>
+
+        <!-- زخارف الزوايا الإسلامية -->
+        <svg class="card-corner-ornament top-right" viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path d="M5,55 L5,15 C5,9.5 9.5,5 15,5 L55,5" stroke="var(--gold-400)"></path>
+          <circle cx="15" cy="15" r="4" fill="var(--gold-400)"></circle>
+          <path d="M15,25 C15,19.5 19.5,15 25,15 L45,15" stroke="var(--gold-400)" opacity="0.6"></path>
+        </svg>
+        <svg class="card-corner-ornament top-left" viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path d="M5,55 L5,15 C5,9.5 9.5,5 15,5 L55,5" stroke="var(--gold-400)"></path>
+          <circle cx="15" cy="15" r="4" fill="var(--gold-400)"></circle>
+          <path d="M15,25 C15,19.5 19.5,15 25,15 L45,15" stroke="var(--gold-400)" opacity="0.6"></path>
+        </svg>
+
+        <div class="card-content">
+          <!-- البسملة الشريفة -->
+          <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+
+          <!-- عنوان علوي بخط ذهبي زخرفي -->
+          <h1 id="quran-heading" class="card-title">ختمة المصحف كاملة</h1>
+
+          <!-- صورة دائرية للمتوفى بإطار ذهبي في المنتصف -->
+          <div class="deceased-photo-wrap">
+            <div class="deceased-photo-inner">
+              <img id="deceased-image" src="" alt="صورة المتوفى" onerror="handleImageError(this)" />
+              <!-- أيقونة بديلة في حال عدم توفر صورة -->
+              <svg id="deceased-fallback-icon" class="fallback-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 100-18 9 9 0 000 18z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 7v5l3 3"></path>
+              </svg>
+            </div>
+          </div>
+
+          <!-- نص الدعاء وإهداء الثواب -->
+          <div class="dedication-box">
+            <p class="dedication-text">
+              اللهم إني أهدي ثواب هذه الختمة إلى روح المرحومة بإذن الله
+              <span id="deceased-name-display" class="deceased-highlight-name">الحاجة مسعودة عبدالحميد</span>
+              رحمها الله
+            </p>
+            <p id="deceased-dua-suffix" class="dedication-subtext">اللهم اغفر لها وارحمها وعافها واعف عنها وأكرم نزلها واجعل قبرها روضة من رياض الجنة</p>
+          </div>
+
+          <!-- قائمة منسدلة لاختيار الجزء من مقدمة حتى الجزء 30 -->
+          <div class="juz-selection-wrap">
+            <label for="juz-select-dropdown" class="field-label">اختر الجزء للاستماع:</label>
+            <div class="select-styled-container">
+              <select id="juz-select-dropdown" class="juz-select" onchange="onJuzSelectionChange(this.value)">
+                <!-- يتم ملء الخيارات تلقائيًا بالجافاسكريبت -->
+              </select>
+              <div class="select-arrow" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M6 9l6 6 6-6"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- مشغل صوت بسيط ومتكامل -->
+          <div class="audio-player-card">
+            <!-- عنصر الصوت الفعلي المخفي -->
+            <audio id="quran-audio" preload="metadata"></audio>
+
+            <div class="player-header">
+              <div class="player-info">
+                <div id="player-part-title" class="current-juz-title">الجزء الأول</div>
+                <div id="player-reciter-name" class="reciter-name">بصوت الشيخ مشاري بن راشد العفاسي</div>
+              </div>
+              <div class="player-status-badge">
+                <span class="status-dot"></span>
+                <span id="player-status-text">جاهز للتشغيل</span>
+              </div>
+            </div>
+
+            <!-- شريط التقدم التفاعلي -->
+            <div class="progress-section">
+              <div id="progress-bar-container" class="progress-bar-wrap" onclick="seekAudio(event)">
+                <div id="progress-bar-fill" class="progress-bar-fill"></div>
+              </div>
+              <div class="time-display">
+                <span id="audio-current-time">00:00</span>
+                <span id="audio-total-duration">--:--</span>
+              </div>
+            </div>
+
+            <!-- أزرار التحكم -->
+            <div class="controls-row">
+              <!-- زر التقديم 15 ثانية -->
+              <button class="ctrl-btn" onclick="skipAudio(15)" title="تقديم 15 ثانية" aria-label="تقديم 15 ثانية">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M13 19l9-7-9-7v14zM2 19l9-7-9-7v14z"></path>
+                </svg>
+              </button>
+
+              <!-- زر التشغيل / الإيقاف الرئيسي -->
+              <button id="main-play-btn" class="play-main-btn" onclick="togglePlayAudio()" title="تشغيل / إيقاف" aria-label="تشغيل أو إيقاف الصوت">
+                <!-- أيقونة التشغيل -->
+                <svg id="play-icon" width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M8 5v14l11-7z"></path>
+                </svg>
+                <!-- أيقونة الإيقاف المؤقت (مخفية في البداية) -->
+                <svg id="pause-icon" style="display:none;" width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path>
+                </svg>
+              </button>
+
+              <!-- زر التأخير 15 ثانية -->
+              <button class="ctrl-btn" onclick="skipAudio(-15)" title="تأخير 15 ثانية" aria-label="تأخير 15 ثانية">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M11 19l-9-7 9-7v14zM22 19l-9-7 9-7v14z"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- زر تحميل الختمة للاستماع بدون إنترنت -->
+          <a id="download-audio-btn" href="#" download target="_blank" class="download-link-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+            </svg>
+            <span>تحميل الختمة للاستماع بدون إنترنت</span>
+          </a>
+
+        </div>
+      </article>
+
+    </section>
+
+    <!-- ======================================================================
+         القسم الثاني: قسم التسبيح (مخفي في البداية)
+         ====================================================================== -->
+    <section id="section-tasbeeh" class="section-view" aria-labelledby="tasbeeh-heading">
+      
+      <article class="tasbeeh-card">
+
+        <!-- سيلويت المسجد والزخارف في خلفية الكارت -->
+        <div class="mosque-backdrop" aria-hidden="true">
+          <svg viewBox="0 0 1000 500" preserveAspectRatio="none">
+            <path d="M0,500 L0,380 L60,380 L60,260 L75,230 L90,260 L90,380 L160,380 L160,340 C160,300 240,300 240,340 L240,380 L320,380 L320,160 L335,120 L350,160 L350,380 L400,380 C400,280 600,280 600,380 L650,380 L650,160 L665,120 L680,160 L680,380 L760,380 L760,340 C760,300 840,300 840,340 L840,380 L910,380 L910,260 L925,230 L940,260 L940,380 L1000,380 L1000,500 Z"></path>
+          </svg>
+        </div>
+
+        <div class="card-content">
+          <!-- البسملة -->
+          <div class="bismillah">وَاذْكُرْ رَبَّكَ فِي نَفْسِكَ تَضَرُّعًا وَخِيفَةً</div>
+
+          <!-- عنوان علوي بخط ذهبي زخرفي -->
+          <h2 id="tasbeeh-heading" class="card-title">السبحة الإلكترونية</h2>
+
+          <!-- نص الإهداء في قسم التسبيح -->
+          <div class="dedication-box">
+            <p class="dedication-text">
+              اللهم اجعل ثواب هذا التسبيح في ميزان حسنات
+              <span id="deceased-name-tasbeeh" class="deceased-highlight-name">الحاجة مسعودة عبدالحميد</span>
+              رحمها الله
+            </p>
+          </div>
+
+          <!-- شريط أذكار سريعة للاختيار -->
+          <div class="dhikr-chips-scroll" role="tablist" aria-label="الأذكار">
+            <button class="dhikr-chip active" onclick="setDhikr('سُبْحَانَ اللَّهِ', this)">سُبْحَانَ اللَّهِ</button>
+            <button class="dhikr-chip" onclick="setDhikr('الْحَمْدُ لِلَّهِ', this)">الْحَمْدُ لِلَّهِ</button>
+            <button class="dhikr-chip" onclick="setDhikr('لَا إِلَهَ إِلَّا اللَّهُ', this)">لَا إِلَهَ إِلَّا اللَّهُ</button>
+            <button class="dhikr-chip" onclick="setDhikr('اللَّهُ أَكْبَرُ', this)">اللَّهُ أَكْبَرُ</button>
+            <button class="dhikr-chip" onclick="setDhikr('أَسْتَغْفِرُ اللَّهَ', this)">أَسْتَغْفِرُ اللَّهَ</button>
+            <button class="dhikr-chip" onclick="setDhikr('اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ', this)">الصَّلَاةُ عَلَى النَّبِيِّ</button>
+          </div>
+
+          <!-- مسبحة تفاعلية بـ SVG حلقة خرزات دائرية متقنة -->
+          <div class="masbaha-interactive-wrapper" onclick="incrementTasbeeh()" title="اضغط للتسبيح" aria-label="اضغط للتسبيح">
+            <svg id="masbaha-beads-svg" class="masbaha-svg" viewBox="0 0 300 300">
+              <defs>
+                <!-- تدرج لوني للخرزات العادية (زمردي أنيق مع لمعة ذهبية) -->
+                <radialGradient id="beadGrad" cx="35%" cy="35%" r="65%">
+                  <stop offset="0%" stop-color="#34d399"></stop>
+                  <stop offset="45%" stop-color="#059669"></stop>
+                  <stop offset="90%" stop-color="#064e3b"></stop>
+                  <stop offset="100%" stop-color="#022c22"></stop>
+                </radialGradient>
+                <!-- تدرج لوني لخرز الفواصل وشاهد السبحة (ذهبي ملكي) -->
+                <radialGradient id="goldBeadGrad" cx="35%" cy="35%" r="65%">
+                  <stop offset="0%" stop-color="#fef08a"></stop>
+                  <stop offset="50%" stop-color="#eab308"></stop>
+                  <stop offset="90%" stop-color="#ca8a04"></stop>
+                  <stop offset="100%" stop-color="#713f12"></stop>
+                </radialGradient>
+                <!-- تدرج الخرزة المضيئة عند الضغط -->
+                <radialGradient id="activeBeadGrad" cx="35%" cy="35%" r="65%">
+                  <stop offset="0%" stop-color="#ffffff"></stop>
+                  <stop offset="40%" stop-color="#fde047"></stop>
+                  <stop offset="85%" stop-color="#f59e0b"></stop>
+                  <stop offset="100%" stop-color="#b45309"></stop>
+                </radialGradient>
+              </defs>
+              
+              <!-- خيط السبحة الدائري في الخلفية -->
+              <circle cx="150" cy="150" r="118" fill="none" stroke="rgba(216, 183, 83, 0.4)" stroke-width="3.5" stroke-dasharray="4 3"></circle>
+              
+              <!-- مئذنة / شاهد وشرابة السبحة الذهبية في أعلى الحلقة -->
+              <g transform="translate(150, 16) scale(0.9)">
+                <polygon points="-6,15 0,-1 6,15" fill="url(#goldBeadGrad)"></polygon>
+                <circle cx="0" cy="18" r="5" fill="url(#goldBeadGrad)"></circle>
+                <!-- خيوط الشرابة -->
+                <line x1="0" y1="23" x2="0" y2="34" stroke="var(--gold-400)" stroke-width="2"></line>
+                <line x1="-3" y1="23" x2="-6" y2="32" stroke="var(--gold-300)" stroke-width="1.5"></line>
+                <line x1="3" y1="23" x2="6" y2="32" stroke="var(--gold-300)" stroke-width="1.5"></line>
+              </g>
+
+              <!-- مجموعة الخرزات الـ 33 سيتم إنشاؤها ديناميكيًا بواسطة JS -->
+              <g id="beads-group"></g>
+            </svg>
+
+            <!-- القرص الداخلي في مركز السبحة -->
+            <div class="masbaha-center-disc">
+              <span id="current-dhikr-name" class="center-dhikr-label">سُبْحَانَ اللَّهِ</span>
+              <span class="center-tap-hint">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 5v14M5 12h14"></path>
+                </svg>
+                اضغط للتسبيح
+              </span>
+            </div>
+          </div>
+
+          <!-- شاشة عرض عدد التسبيحات الإجمالي -->
+          <div class="counter-display-card">
+            <div id="tasbeeh-counter" class="counter-value">0</div>
+            <div class="counter-meta">
+              <span>تسبيحة مُهداة للمتوفى</span>
+              <span style="opacity:0.4;">•</span>
+              <span id="tasbeeh-lap-count" style="color:var(--gold-300);">الدورة 1 (0 / 33)</span>
+            </div>
+          </div>
+
+          <!-- أزرار الإجراءات: تصفير العداد + كتم/تشغيل نقرة الصوت -->
+          <div class="tasbeeh-actions-row">
+            <button class="tasbeeh-secondary-btn" onclick="openResetModal()">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 12a9 9 0 019-9 9.75 9.75 0 016.74 2.74L21 8"></path>
+                <path d="M21 3v5h-5"></path>
+                <path d="M21 12a9 9 0 01-9 9 9.75 9.75 0 01-6.74-2.74L3 16"></path>
+                <path d="M8 16H3v5"></path>
+              </svg>
+              <span>إعادة ضبط</span>
+            </button>
+
+            <button id="sound-toggle-btn" class="tasbeeh-secondary-btn" onclick="toggleHapticSound()">
+              <svg id="sound-icon-on" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+              </svg>
+              <svg id="sound-icon-off" style="display:none;" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <line x1="23" y1="9" x2="17" y2="15"></line>
+                <line x1="17" y1="9" x2="23" y2="15"></line>
+              </svg>
+              <span id="sound-toggle-text">صوت النقرة: مفعّل</span>
+            </button>
+          </div>
+
+        </div>
+      </article>
+
+    </section>
+
+    <!-- تذييل بسيط هادئ -->
+    <footer class="site-footer">
+      <p>صدقة جارية • تقبّل الله منّا ومنكم صالح الأعمال</p>
+    </footer>
+
+  </main>
+
+  <!-- ========================================================================
+       إشعار احتفال لطيف عند إتمام مضاعفات 33 أو 100
+       ======================================================================== -->
+  <div id="celebration-toast" class="celebration-toast" role="alert">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="color:var(--gold-300);">
+      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+    </svg>
+    <span id="celebration-text">ما شاء الله! أتممت ٣٣ تسبيحة</span>
+  </div>
+
+  <!-- ========================================================================
+       نافذة تأكيد إعادة ضبط العداد
+       ======================================================================== -->
+  <div id="reset-confirm-modal" class="confirm-overlay" onclick="closeResetModal(event)">
+    <div class="confirm-box" onclick="event.stopPropagation()">
+      <h3 class="confirm-title">تصفير عداد التسبيح</h3>
+      <p class="confirm-desc">هل أنت متأكد من رغبتك في إعادة ضبط العداد إلى الصفر؟</p>
+      <div class="confirm-actions">
+        <button class="confirm-btn-yes" onclick="confirmResetTasbeeh()">نعم، تصفير</button>
+        <button class="confirm-btn-no" onclick="closeResetModal()">إلغاء</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       الكود البرمجي (Vanilla JavaScript)
+       ======================================================================== -->
+  <script>
+    /* ==========================================================================
+       1. إعدادات وبيانات الموقع (CONFIGURATION)
+       يمكنك تعديل اسم المتوفى ورابط الصورة وروابط الأجزاء بسهولة تامة هنا:
+       ========================================================================== */
+
+    // اسم المتوفى رحمه الله (يظهر في كارت الختمة وكارت التسبيح)
+    const DECEASED_NAME = "الحاجة مسعودة عبدالحميد";
+
+    // صيغة الترحم والدعاء الإضافي
+    const DECEASED_DUA = "اللهم اغفر لها وارحمها وعافها واعف عنها وأكرم نزلها، واجعل قبرها روضة من رياض الجنة";
+
+    // رابط صورة المتوفى (يمكنك وضع رابط صورة المتوفى المباشر هنا)
+    // إذا تركت الرابط فارغًا أو لم تعمل الصورة، ستظهر أيقونة إسلامية وقورة تلقائيًا
+    const DECEASED_IMAGE_URL = "";
+
+    // اسم القارئ للختمة
+    const RECITER_NAME = "الشيخ مشاري بن راشد العفاسي";
+
+    /* --------------------------------------------------------------------------
+       مصفوفة الأجزاء الـ 31 (مقدمة + 30 جزءًا مقسمة بالكامل من Archive.org)
+       روابط MP3 مباشرة ومجانية بدون أي API
+       -------------------------------------------------------------------------- */
+    const QURAN_PARTS = [
+      {
+        id: 0,
+        title: "مقدمة الختمة ودعاء الختم والفاتحة",
+        desc: "سورة الفاتحة والافتتاح",
+        url: "https://server8.mp3quran.net/afs/001.mp3"
+      },
+      {
+        id: 1,
+        title: "الجزء الأول (الم - البقرة 141)",
+        desc: "سورة الفاتحة وسورة البقرة",
+        url: "https://archive.org/download/MisharyRasyidPerJuz/Mishary/01.mp3"
+      },
+      {
+        id: 2,
+        title: "الجزء الثاني (سَيَقُولُ السُّفَهَاءُ - البقرة 252)",
+        desc: "تكملة سورة البقرة",
+        url: "https://archive.org/download/MisharyRasyidPerJuz/Mishary/02.mp3"
+      },
+      {
+        id: 3,
+        title: "الجزء الثالث (تِلْكَ الرُّسُلُ - آل عمران 92)",
+        desc: "خواتيم البقرة وأوائل آل عمران",
+        url: "https://archive.org/download/MisharyRasyidPerJuz/Mishary/03.mp3"
+      },
+      {
+        id: 4,
+        title: "الجزء الرابع (لَنْ تَنَالُوا الْبِرَّ - النساء 23)",
+        desc: "تكملة آل عمران وأوائل النساء",
+        url: "https://archive.org/download/MisharyRasyidPerJuz/Mishary/04.mp3"
+      },
+      {
+        id: 5,
+        title: "الجزء الخامس (وَالْمُحْصَنَاتُ - النساء 147)",
+        desc: "تكملة سورة النساء",
+        url: "https://archive.org/download/MisharyRasyidPerJuz/Mishary/05.mp3"
+      },
+      {
+        id: 6,
+        title: "الجزء السادس (لَا يُحِبُّ اللَّهُ الْجَهْرَ - المائدة 81)",
+        desc: "خواتيم النساء وأوائل المائدة",
+        url: "https://archive.org/download/MisharyRasyidPerJuz/Mishary/06.mp3"
+      },
+      {
+        id: 7,
+        title: "الجزء السابع (وَإِذَا سَمِعُوا - الأنعام 110)",
+        desc: "تكملة المائدة وأوائل الأنعام",
+        url: "https://archive.org/download/MisharyRasyidPerJuz/Mishary/07.mp3"
+      },
+      {
+        id: 8,
+        title: "الجزء الثامن (وَلَوْ أَنَّنَا نَزَّلْنَا - الأعراف 87)",
+        desc: "تكملة الأنعام وأوائل الأعراف",
+        url: "https://archive.org/download/MisharyRasyidPerJuz/Mishary/08.mp3"
+      },
+      {
+        id: 9,
+        title: "الجزء التاسع (قَالَ الْمَلَأُ - الأنفال 40)",
+        desc: "تكملة الأعراف وأوائل الأنفال",
+        url: "https://archive.org/download/MisharyRasyidPerJuz/Mishary/09.mp3"
+      },
+      {
+        id: 10,
+        title: "الجزء العاشر (وَاعْلَمُوا أَنَّمَا غَنِمْتُمْ - التوبة 92)",
+        desc: "تكملة الأنفال وأوائل التوبة",
+        url: "https://archive.org/download/MisharyRasyidPerJuz/Mishary/10.mp3"
+      },
+      {
+        id: 11,
+        title: "الجزء الحادي عشر (يَعْتَذِرُونَ إِلَيْكُمْ - هود 5)",
+        desc: "تكملة التوبة ويونس وأوائل هود",
+        url: "https://archive.org/download/MisharyRasyidPerJuz/Mishary/11.mp3"
+      },
+      {
+        id: 12,
+        title: "الجزء الثاني عشر (وَمَا مِنْ دَابَّةٍ - يوسف 52)",
+        desc: "تكملة سورة هود وأوائل يوسف",
+        url: "https://archive.org/download/MisharyRasyidPerJuz/Mishary/12.mp3"
+      },
+      {
+        id: 13,
+        title: "الجزء الثالث عشر (وَمَا أُبَرِّئُ نَفْسِي - إبراهيم 52)",
+        desc: "تكملة يوسف والرعد وإبراهيم",
+        url: "https://archive.org/download/MisharyRasyidPerJuz/Mishary/13.mp3"
+      },
+      {
+        id: 14,
+        title: "الجزء الرابع عشر (رُبَمَا يَوَدُّ الَّذِينَ - النحل 128)",
+        desc: "سورة الحجر وسورة النحل كاملة",
+        url: "https://archive.org/download/MisharyRasyidPerJuz/Mishary/14.mp3"
+      },
+      {
+        id: 15,
+        title: "الجزء الخامس عشر (سُبْحَانَ الَّذِي أَسْرَى - الكهف 74)",
+        desc: "سورة الإسراء وأوائل الكهف",
+        url: "https://archive.org/download/MisharyRasyidPerJuz/Mishary/15.mp3"
+      },
+      {
+        id: 16,
+        title: "الجزء السادس عشر (قَالَ أَلَمْ أَقُلْ لَكَ - طه 135)",
+        desc: "تكملة الكهف ومريم وطه",
+        url: "https://archive.org/download/MisharyRasyidPerJuz/Mishary/16.mp3"
+      },
+      {
+        id: 17,
+        title: "الجزء السابع عشر (اقْتَرَبَ لِلنَّاسِ حِسَابُهُمْ - الحج 78)",
+        desc: "سورة الأنبياء وسورة الحج",
+        url: "https://archive.org/download/MisharyRasyidPerJuz/Mishary/17.mp3"
+      },
+      {
+        id: 18,
+        title: "الجزء الثامن عشر (قَدْ أَفْلَحَ الْمُؤْمِنُونَ - الفرقان 20)",
+        desc: "المؤمنون والنور وأوائل الفرقان",
+        url: "https://archive.org/download/MisharyRasyidPerJuz/Mishary/18.mp3"
+      },
+      {
+        id: 19,
+        title: "الجزء التاسع عشر (وَقَالَ الَّذِينَ لَا يَرْجُونَ - النمل 55)",
+        desc: "تكملة الفرقان والشعراء وأوائل النمل",
+        url: "https://archive.org/download/MisharyRasyidPerJuz/Mishary/19.mp3"
+      },
+      {
+        id: 20,
+        title: "الجزء العشرون (أَمَّنْ خَلَقَ - العنكبوت 45)",
+        desc: "تكملة النمل والقصص وأوائل العنكبوت",
+        url: "https://archive.org/download/MisharyRasyidPerJuz/Mishary/20.mp3"
+      },
+      {
+        id: 21,
+        title: "الجزء الحادي والعشرون (اتْلُ مَا أُوحِيَ إِلَيْكَ - الأحزاب 30)",
+        desc: "العنكبوت والروم ولقمان والسجدة والأحزاب",
+        url: "https://archive.org/download/MisharyRasyidPerJuz/Mishary/21.mp3"
+      },
+      {
+        id: 22,
+        title: "الجزء الثاني والعشرون (وَمَنْ يَقْنُتْ مِنْكُنَّ - يس 27)",
+        desc: "الأحزاب وسبأ وفاطر وأوائل يس",
+        url: "https://archive.org/download/MisharyRasyidPerJuz/Mishary/22.mp3"
+      },
+      {
+        id: 23,
+        title: "الجزء الثالث والعشرون (وَمَا لِيَ لَا أَعْبُدُ - الزمر 31)",
+        desc: "يس والصافات وص وأوائل الزمر",
+        url: "https://archive.org/download/MisharyRasyidPerJuz/Mishary/23.mp3"
+      },
+      {
+        id: 24,
+        title: "الجزء الرابع والعشرون (فَمَنْ أَظْلَمُ - فصلت 46)",
+        desc: "تكملة الزمر وغافر وأوائل فصلت",
+        url: "https://archive.org/download/MisharyRasyidPerJuz/Mishary/24.mp3"
+      },
+      {
+        id: 25,
+        title: "الجزء الخامس والعشرون (إِلَيْهِ يُرَدُّ عِلْمُ السَّاعَةِ - الجاثية 37)",
+        desc: "فصلت والشورى والزخرف والدخان والجاثية",
+        url: "https://archive.org/download/MisharyRasyidPerJuz/Mishary/25.mp3"
+      },
+      {
+        id: 26,
+        title: "الجزء السادس والعشرون (حم تَنْزِيلُ - الذاريات 30)",
+        desc: "الأحقاف ومحمد والفتح والحجرات وق والذاريات",
+        url: "https://archive.org/download/MisharyRasyidPerJuz/Mishary/26.mp3"
+      },
+      {
+        id: 27,
+        title: "الجزء السابع والعشرون (قَالَ فَمَا خَطْبُكُمْ - الحديد 29)",
+        desc: "الطور والنجم والقمر والرحمن والواقعة والحديد",
+        url: "https://archive.org/download/MisharyRasyidPerJuz/Mishary/27.mp3"
+      },
+      {
+        id: 28,
+        title: "الجزء الثامن والعشرون (قَدْ سَمِعَ اللَّهُ - التحريم 12)",
+        desc: "المجادلة والحشر والممتحنة والصف والجمعة والمنافقون والتغابن والطلاق والتحريم",
+        url: "https://archive.org/download/MisharyRasyidPerJuz/Mishary/28.mp3"
+      },
+      {
+        id: 29,
+        title: "الجزء التاسع والعشرون (تَبَارَكَ الَّذِي بِيَدِهِ الْمُلْكُ - المرسلات 50)",
+        desc: "الملك والقلم والحاقة والمعارج ونوح والجن والمزمل والمدثر والقيامة والإنسان والمرسلات",
+        url: "https://archive.org/download/MisharyRasyidPerJuz/Mishary/29.mp3"
+      },
+      {
+        id: 30,
+        title: "الجزء الثلاثون (عَمَّ يَتَسَاءَلُونَ - الناس 6)",
+        desc: "جزء عمَّ كامل حتى سورة الناس",
+        url: "https://archive.org/download/MisharyRasyidPerJuz/Mishary/30.mp3"
+      }
+    ];
+
+    /* ==========================================================================
+       2. إدارة حالة التطبيق (Application State)
+       ========================================================================== */
+    let currentSelectedJuzIndex = 1; // الافتراضي: الجزء الأول
+    let isAudioPlaying = false;
+    let tasbeehCount = 0;
+    let activeBeadIndex = 0;
+    let isClickSoundEnabled = true;
+    let audioContext = null;
+
+    // عناصر DOM
+    const audioEl = document.getElementById('quran-audio');
+    const playIcon = document.getElementById('play-icon');
+    const pauseIcon = document.getElementById('pause-icon');
+    const playerPartTitle = document.getElementById('player-part-title');
+    const playerStatusText = document.getElementById('player-status-text');
+    const progressBarFill = document.getElementById('progress-bar-fill');
+    const audioCurrentTime = document.getElementById('audio-current-time');
+    const audioTotalDuration = document.getElementById('audio-total-duration');
+    const downloadAudioBtn = document.getElementById('download-audio-btn');
+    const juzDropdown = document.getElementById('juz-select-dropdown');
+    const tasbeehCounterEl = document.getElementById('tasbeeh-counter');
+    const tasbeehLapCountEl = document.getElementById('tasbeeh-lap-count');
+    const currentDhikrNameEl = document.getElementById('current-dhikr-name');
+    const celebrationToast = document.getElementById('celebration-toast');
+    const celebrationText = document.getElementById('celebration-text');
+    const resetModal = document.getElementById('reset-confirm-modal');
+
+    /* ==========================================================================
+       3. التهيئة الأولى عند تحميل الصفحة (Initialization)
+       ========================================================================== */
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. تطبيق بيانات المتوفى على العناصر
+      document.getElementById('deceased-name-display').textContent = DECEASED_NAME;
+      document.getElementById('deceased-name-tasbeeh').textContent = DECEASED_NAME;
+      document.getElementById('deceased-dua-suffix').textContent = DECEASED_DUA;
+      
+      const deceasedImg = document.getElementById('deceased-image');
+      if (DECEASED_IMAGE_URL && DECEASED_IMAGE_URL.trim() !== '') {
+        deceasedImg.src = DECEASED_IMAGE_URL;
+      } else {
+        handleImageError(deceasedImg);
+      }
+
+      // 2. تحديث اسم القارئ
+      document.getElementById('player-reciter-name').textContent = `بصوت ${RECITER_NAME}`;
+
+      // 3. ملء القائمة المنسدلة للأجزاء
+      populateJuzDropdown();
+
+      // 4. تحميل أول جزء في المشغل وتحديث زر التحميل
+      loadJuzAudio(currentSelectedJuzIndex, false);
+
+      // 5. بناء خرزات السبحة التفاعلية (SVG)
+      buildMasbahaBeads();
+
+      // 6. استعادة عداد التسبيح من localStorage
+      initTasbeehCounter();
+
+      // 7. إعداد مستمعي أحداث مشغل الصوت
+      setupAudioEventListeners();
+    });
+
+    // معالجة صورة المتوفى في حال عدم وجودها أو تعذر تحميلها
+    function handleImageError(imgElement) {
+      imgElement.style.display = 'none';
+      const fallback = document.getElementById('deceased-fallback-icon');
+      if (fallback) fallback.style.display = 'block';
+    }
+
+    /* ==========================================================================
+       4. التنقل بين قسم الختمة وقسم التسبيح (Tab Navigation)
+       شريط التنقل ثابت في الأعلى وفيه كلمتان فقط
+       ========================================================================== */
+    function switchSection(target) {
+      const quranNavBtn = document.getElementById('nav-quran-btn');
+      const tasbeehNavBtn = document.getElementById('nav-tasbeeh-btn');
+      const quranSection = document.getElementById('section-quran');
+      const tasbeehSection = document.getElementById('section-tasbeeh');
+
+      if (target === 'quran') {
+        quranNavBtn.classList.add('active');
+        tasbeehNavBtn.classList.remove('active');
+        
+        tasbeehSection.classList.remove('active');
+        setTimeout(() => {
+          tasbeehSection.style.display = 'none';
+          quranSection.style.display = 'block';
+          // إجبار المتصفح على قراءة التغيير قبل تطبيق الأوباسيتي للتلاشي السلس
+          void quranSection.offsetWidth;
+          quranSection.classList.add('active');
+        }, 150);
+      } else {
+        tasbeehNavBtn.classList.add('active');
+        quranNavBtn.classList.remove('active');
+
+        quranSection.classList.remove('active');
+        setTimeout(() => {
+          quranSection.style.display = 'none';
+          tasbeehSection.style.display = 'block';
+          void tasbeehSection.offsetWidth;
+          tasbeehSection.classList.add('active');
+        }, 150);
+      }
+    }
+
+    /* ==========================================================================
+       5. وظائف قسم الختمة ومشغل الصوت (Quran Audio Player)
+       ========================================================================== */
+    // ملء القائمة المنسدلة للأجزاء
+    function populateJuzDropdown() {
+      juzDropdown.innerHTML = '';
+      QURAN_PARTS.forEach((part, index) => {
+        const option = document.createElement('option');
+        option.value = index;
+        option.textContent = part.title;
+        if (index === currentSelectedJuzIndex) {
+          option.selected = true;
+        }
+        juzDropdown.appendChild(option);
+      });
+    }
+
+    // عند تغيير الاختيار من القائمة المنسدلة
+    function onJuzSelectionChange(indexStr) {
+      const index = parseInt(indexStr, 10);
+      currentSelectedJuzIndex = index;
+      loadJuzAudio(index, true);
+    }
+
+    // تحميل ملف الصوت للجزء المختار
+    function loadJuzAudio(index, autoPlay = false) {
+      const part = QURAN_PARTS[index];
+      if (!part) return;
+
+      playerPartTitle.textContent = part.title;
+      audioEl.src = part.url;
+      audioEl.load();
+
+      // تحديث رابط زر التحميل المباشر
+      downloadAudioBtn.href = part.url;
+      downloadAudioBtn.setAttribute('download', `الختمة_${part.title.replace(/\s+/g, '_')}.mp3`);
+
+      playerStatusText.textContent = 'جاري التحميل...';
+      progressBarFill.style.width = '0%';
+      audioCurrentTime.textContent = '00:00';
+
+      if (autoPlay) {
+        audioEl.play().then(() => {
+          isAudioPlaying = true;
+          updatePlayPauseButton();
+          playerStatusText.textContent = 'قيد التشغيل';
+        }).catch(err => {
+          console.log("Audio play postponed until user interaction", err);
+          isAudioPlaying = false;
+          updatePlayPauseButton();
+          playerStatusText.textContent = 'جاهز للتشغيل';
+        });
+      } else {
+        isAudioPlaying = false;
+        updatePlayPauseButton();
+      }
+    }
+
+    // تبديل التشغيل والإيقاف
+    function togglePlayAudio() {
+      if (audioEl.paused) {
+        audioEl.play().then(() => {
+          isAudioPlaying = true;
+          updatePlayPauseButton();
+          playerStatusText.textContent = 'قيد التشغيل';
+        }).catch(err => {
+          console.error("Failed to play audio:", err);
+          playerStatusText.textContent = 'حدث خطأ في التشغيل';
+        });
+      } else {
+        audioEl.pause();
+        isAudioPlaying = false;
+        updatePlayPauseButton();
+        playerStatusText.textContent = 'متوقف مؤقتًا';
+      }
+    }
+
+    function updatePlayPauseButton() {
+      if (isAudioPlaying) {
+        playIcon.style.display = 'none';
+        pauseIcon.style.display = 'block';
+      } else {
+        playIcon.style.display = 'block';
+        pauseIcon.style.display = 'none';
+      }
+    }
+
+    // تقديم أو تأخير الصوت بالثواني
+    function skipAudio(seconds) {
+      if (audioEl.duration) {
+        audioEl.currentTime = Math.max(0, Math.min(audioEl.duration, audioEl.currentTime + seconds));
+      }
+    }
+
+    // القفز إلى وقت محدد بالضغط على شريط التقدم
+    function seekAudio(e) {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      // الاتجاه RTL: نحسب النسبة من اليمين
+      const width = rect.width;
+      const ratio = 1 - (clickX / width);
+      if (audioEl.duration) {
+        audioEl.currentTime = ratio * audioEl.duration;
+      }
+    }
+
+    // إعداد مستمعي أحداث مشغل الصوت
+    function setupAudioEventListeners() {
+      audioEl.addEventListener('timeupdate', () => {
+        if (!audioEl.duration) return;
+        const percent = (audioEl.currentTime / audioEl.duration) * 100;
+        progressBarFill.style.width = `${percent}%`;
+        audioCurrentTime.textContent = formatTime(audioEl.currentTime);
+      });
+
+      audioEl.addEventListener('loadedmetadata', () => {
+        audioTotalDuration.textContent = formatTime(audioEl.duration);
+        playerStatusText.textContent = isAudioPlaying ? 'قيد التشغيل' : 'جاهز للتشغيل';
+      });
+
+      audioEl.addEventListener('playing', () => {
+        isAudioPlaying = true;
+        updatePlayPauseButton();
+        playerStatusText.textContent = 'قيد التشغيل';
+      });
+
+      audioEl.addEventListener('pause', () => {
+        isAudioPlaying = false;
+        updatePlayPauseButton();
+        playerStatusText.textContent = 'متوقف مؤقتًا';
+      });
+
+      audioEl.addEventListener('ended', () => {
+        isAudioPlaying = false;
+        updatePlayPauseButton();
+        playerStatusText.textContent = 'انتهى المقطع';
+        // الانتقال التلقائي للجزء التالي إن وجد
+        if (currentSelectedJuzIndex < QURAN_PARTS.length - 1) {
+          currentSelectedJuzIndex++;
+          juzDropdown.value = currentSelectedJuzIndex;
+          loadJuzAudio(currentSelectedJuzIndex, true);
+        }
+      });
+
+      audioEl.addEventListener('error', () => {
+        playerStatusText.textContent = 'تعذر تحميل المقطع';
+      });
+    }
+
+    // تنسيق الوقت بالدقائق والثواني (00:00)
+    function formatTime(seconds) {
+      if (isNaN(seconds) || seconds < 0) return '00:00';
+      const mins = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60);
+      const formattedMins = mins < 10 ? `0${mins}` : mins;
+      const formattedSecs = secs < 10 ? `0${secs}` : secs;
+      return `${formattedMins}:${formattedSecs}`;
+    }
+
+    /* ==========================================================================
+       6. وظائف قسم التسبيح والسبحة التفاعلية (Tasbeeh Section & SVG Masbaha)
+       ========================================================================== */
+    const TOTAL_BEADS = 33; // عدد خرزات السبحة
+
+    // بناء خرزات الـ SVG في دائرة متناسقة
+    function buildMasbahaBeads() {
+      const beadsGroup = document.getElementById('beads-group');
+      beadsGroup.innerHTML = '';
+      const radius = 118; // نصف قطر الدائرة
+      const centerX = 150;
+      const centerY = 150;
+
+      for (let i = 0; i < TOTAL_BEADS; i++) {
+        // حساب زاوية كل خرزة حول المحيط
+        const angle = (i / TOTAL_BEADS) * 2 * Math.PI - (Math.PI / 2);
+        const cx = centerX + radius * Math.cos(angle);
+        const cy = centerY + radius * Math.sin(angle);
+
+        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        circle.setAttribute('cx', cx.toFixed(2));
+        circle.setAttribute('cy', cy.toFixed(2));
+        
+        // خرزات الفواصل المميزة (عند كل 11 خرزة)
+        const isDivider = (i % 11 === 0 && i !== 0);
+        const beadRadius = isDivider ? 9.5 : 8;
+        circle.setAttribute('r', beadRadius);
+        circle.setAttribute('fill', isDivider ? 'url(#goldBeadGrad)' : 'url(#beadGrad)');
+        circle.setAttribute('class', 'bead');
+        circle.setAttribute('id', `bead-${i}`);
+
+        beadsGroup.appendChild(circle);
+      }
+    }
+
+    // استعادة العداد من LocalStorage
+    function initTasbeehCounter() {
+      try {
+        const saved = localStorage.getItem('deceased_tasbeeh_count');
+        if (saved !== null) {
+          tasbeehCount = parseInt(saved, 10) || 0;
+        }
+      } catch (e) {
+        console.warn('LocalStorage not accessible', e);
+      }
+      updateTasbeehUI(false);
+    }
+
+    // الضغط للتسبيح وزيادة العداد
+    function incrementTasbeeh() {
+      tasbeehCount++;
+      activeBeadIndex = (activeBeadIndex + 1) % TOTAL_BEADS;
+
+      // حفظ العداد في localStorage
+      try {
+        localStorage.setItem('deceased_tasbeeh_count', tasbeehCount.toString());
+      } catch (e) {
+        // تجاهل في حال المتصفح مقيّد
+      }
+
+      // تشغيل اهتزاز لمسي خفيف على الموبايل
+      if ('vibrate' in navigator) {
+        try { navigator.vibrate(25); } catch(e){}
+      }
+
+      // تشغيل صوت نقرة الخرزة
+      playBeadClickSound();
+
+      // تحديث الواجهة وتأثير حركة الخرزة
+      updateTasbeehUI(true);
+
+      // فحص الاحتفال عند مضاعفات 33 أو 100
+      checkCelebrationMilestones();
+    }
+
+    // تحديث واجهة التسبيح
+    function updateTasbeehUI(triggerPop = false) {
+      tasbeehCounterEl.textContent = tasbeehCount.toLocaleString('ar-EG');
+      
+      const currentLap = Math.floor(tasbeehCount / TOTAL_BEADS) + 1;
+      const currentLapBead = tasbeehCount % TOTAL_BEADS;
+      tasbeehLapCountEl.textContent = `الدورة ${currentLap} (${currentLapBead} / ${TOTAL_BEADS})`;
+
+      // أنيميشن تكبير الرقم
+      if (triggerPop) {
+        tasbeehCounterEl.classList.add('pulse-pop');
+        setTimeout(() => {
+          tasbeehCounterEl.classList.remove('pulse-pop');
+        }, 150);
+      }
+
+      // تحريك وإضاءة الخرزة النشطة
+      document.querySelectorAll('.bead').forEach((b, idx) => {
+        if (idx === activeBeadIndex) {
+          b.setAttribute('fill', 'url(#activeBeadGrad)');
+          b.classList.add('active');
+        } else {
+          const isDivider = (idx % 11 === 0 && idx !== 0);
+          b.setAttribute('fill', isDivider ? 'url(#goldBeadGrad)' : 'url(#beadGrad)');
+          b.classList.remove('active');
+        }
+      });
+    }
+
+    // تغيير الذكر الحالي
+    function setDhikr(dhikrText, buttonEl) {
+      currentDhikrNameEl.textContent = dhikrText;
+      document.querySelectorAll('.dhikr-chip').forEach(btn => btn.classList.remove('active'));
+      if (buttonEl) buttonEl.classList.add('active');
+
+      if ('vibrate' in navigator) {
+        try { navigator.vibrate(15); } catch(e){}
+      }
+    }
+
+    // الاحتفال عند مضاعفات 33 أو 100
+    function checkCelebrationMilestones() {
+      if (tasbeehCount > 0 && tasbeehCount % 100 === 0) {
+        showCelebration(`مبارك! أتممت ${tasbeehCount} تسبيحة تقبّل الله`);
+      } else if (tasbeehCount > 0 && tasbeehCount % 33 === 0) {
+        showCelebration(`ما شاء الله! أتممت دورة ٣٣ تسبيحة`);
+      }
+    }
+
+    function showCelebration(msg) {
+      celebrationText.textContent = msg;
+      celebrationToast.classList.add('show');
+      if ('vibrate' in navigator) {
+        try { navigator.vibrate([40, 60, 40]); } catch(e){}
+      }
+      setTimeout(() => {
+        celebrationToast.classList.remove('show');
+      }, 3200);
+    }
+
+    // صوت نقرة خرز السبحة الواقعي باستخدام Web Audio API (بدون أي ملف خارجي)
+    function playBeadClickSound() {
+      if (!isClickSoundEnabled) return;
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContext) return;
+        if (!audioContext) {
+          audioContext = new AudioContext();
+        }
+        if (audioContext.state === 'suspended') {
+          audioContext.resume();
+        }
+
+        const osc = audioContext.createOscillator();
+        const gain = audioContext.createGain();
+
+        // صوت نقرة خشبية / عقيقية ناعمة ووقورة
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(640, audioContext.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(120, audioContext.currentTime + 0.04);
+
+        gain.gain.setValueAtTime(0.18, audioContext.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.04);
+
+        osc.connect(gain);
+        gain.connect(audioContext.destination);
+
+        osc.start();
+        osc.stop(audioContext.currentTime + 0.045);
+      } catch (e) {
+        // متصفح قديم لا يدعم Web Audio
+      }
+    }
+
+    // تفعيل أو كتم صوت النقرة
+    function toggleHapticSound() {
+      isClickSoundEnabled = !isClickSoundEnabled;
+      const onIcon = document.getElementById('sound-icon-on');
+      const offIcon = document.getElementById('sound-icon-off');
+      const text = document.getElementById('sound-toggle-text');
+
+      if (isClickSoundEnabled) {
+        onIcon.style.display = 'block';
+        offIcon.style.display = 'none';
+        text.textContent = 'صوت النقرة: مفعّل';
+      } else {
+        onIcon.style.display = 'none';
+        offIcon.style.display = 'block';
+        text.textContent = 'صوت النقرة: مكتوم';
+      }
+    }
+
+    // نوافذ تأكيد إعادة ضبط العداد
+    function openResetModal() {
+      resetModal.classList.add('show');
+    }
+
+    function closeResetModal(e) {
+      if (!e || e.target === resetModal) {
+        resetModal.classList.remove('show');
+      }
+    }
+
+    function confirmResetTasbeeh() {
+      tasbeehCount = 0;
+      activeBeadIndex = 0;
+      try {
+        localStorage.setItem('deceased_tasbeeh_count', '0');
+      } catch (e) {}
+      updateTasbeehUI(true);
+      resetModal.classList.remove('show');
+    }
+
+    // دعم التسبيح بزر المسافة (Spacebar) لتجربة مكتبية مريحة
+    window.addEventListener('keydown', (e) => {
+      if (e.code === 'Space' && document.getElementById('section-tasbeeh').classList.contains('active')) {
+        e.preventDefault();
+        incrementTasbeeh();
+      }
+    });
+  </script>
+  <div id="root" style="display:none;" aria-hidden="true"></div>
+</body>
+</html>
