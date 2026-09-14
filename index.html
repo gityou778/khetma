@@ -30,14 +30,24 @@
   <meta property="og:description" content="موقع لإهداء ثواب ختمة القرآن الكريم والتسبيح لروح المرحومة بإذن الله الحاجة مسعودة عبدالحميد" />
   <meta property="og:type" content="website" />
 
-  <!-- Google Fonts: Cairo للنصوص العادية، و Amiri / Aref Ruqaa للعناوين الدينية والزخرفة -->
+  <!-- إعدادات وتوافقية الـ PWA وتطبيقات الويب التقدمية -->
+  <meta name="theme-color" content="#04140e" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="الختمة" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png" />
+  <link rel="shortcut icon" href="/icons/favicon.png" type="image/png" />
+
+  <!-- Google Fonts: Cairo للنصوص العادية، و Amiri / Aref Ruqaa للعناوين الدينية والزخرفة بحد أدنى للأوزان لتسريع التحميل -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@400;500;600;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet" />
 
   <style>
     /* ==========================================================================
-       التنسيقات اسية والمتغيرات اللونية (CSS Reset & Theme)
+       التنسيقات الأساسية والمتغيرات اللونية (CSS Reset & Theme)
        ========================================================================== */
     :root {
       --bg-dark-900: #04140e;
@@ -74,35 +84,45 @@
       width: 100%;
       min-height: 100%;
       background-color: var(--bg-dark-900);
-      background-image: 
-        radial-gradient(ellipse at 50% 0%, rgba(14, 62, 45, 0.6) 0%, transparent 70%),
-        radial-gradient(circle at 100% 100%, rgba(8, 33, 23, 0.7) 0%, transparent 50%),
-        radial-gradient(circle at 0% 50%, rgba(10, 44, 31, 0.5) 0%, transparent 50%);
-      background-attachment: fixed;
       color: var(--text-white);
       font-family: var(--font-body);
       line-height: 1.6;
       overflow-x: hidden;
       direction: rtl;
       text-align: right;
-      /* إخفاء شريط التمرير على جميع المتصفحات مع استمرار إمكانية التمرير */
       scrollbar-width: none; /* Firefox */
       -ms-overflow-style: none; /* IE and Edge */
+      touch-action: pan-y;
+      -webkit-overflow-scrolling: touch;
     }
 
-    /* إخفاء شريط التمرير على متصفحات WebKit (Chrome, Safari, Edge الحديثة) */
+    /* طبقة الخلفية الثابتة المستقلة: تحل المشكلة الجذرية لبطء الـ Scrolling بتفادي إعادة الرسم (Repaint) */
+    .bg-fixed-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+      background-color: var(--bg-dark-900);
+      background-image: 
+        radial-gradient(ellipse at 50% 0%, rgba(14, 62, 45, 0.6) 0%, transparent 70%),
+        radial-gradient(circle at 100% 100%, rgba(8, 33, 23, 0.7) 0%, transparent 50%),
+        radial-gradient(circle at 0% 50%, rgba(10, 44, 31, 0.5) 0%, transparent 50%);
+      transform: translateZ(0);
+      will-change: transform;
+    }
+
+    /* إخفاء شريط التمرير بدقة بدون Universal Selector الثقيل */
     html::-webkit-scrollbar,
-    body::-webkit-scrollbar,
-    *::-webkit-scrollbar {
+    body::-webkit-scrollbar {
       display: none;
       width: 0 !important;
       height: 0 !important;
       background: transparent !important;
-    }
-
-    * {
-      scrollbar-width: none;
-      -ms-overflow-style: none;
     }
 
     /* ==========================================================================
@@ -116,14 +136,16 @@
       right: 0;
       height: 64px;
       z-index: 1000;
-      background: rgba(4, 20, 14, 0.85);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      background: rgba(4, 20, 14, 0.92);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border-gold);
       display: flex;
       align-items: center;
       justify-content: center;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      transform: translateZ(0);
+      will-change: transform;
     }
 
     .nav-container {
@@ -134,6 +156,41 @@
       align-items: center;
       justify-content: center;
       gap: 2rem;
+      position: relative;
+    }
+
+    /* زر تثبيت تطبيق الـ PWA في النافبار */
+    .nav-install-btn {
+      position: absolute;
+      left: 1rem;
+      display: none;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(216, 183, 83, 0.14);
+      border: 1px solid var(--border-gold);
+      color: var(--gold-200);
+      border-radius: 9999px;
+      padding: 0.35rem 0.85rem;
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      outline: none;
+      white-space: nowrap;
+      z-index: 10;
+    }
+
+    .nav-install-btn:hover {
+      background: rgba(216, 183, 83, 0.25);
+      border-color: var(--gold-400);
+      color: #ffffff;
+      box-shadow: 0 0 10px rgba(216, 183, 83, 0.35);
+      transform: translateY(-1px);
+    }
+
+    .nav-install-btn:active {
+      transform: translateY(0) scale(0.96);
     }
 
     .nav-btn {
@@ -217,6 +274,7 @@
       overflow: hidden;
       text-align: center;
       margin-bottom: 1.5rem;
+      transform: translateZ(0);
     }
 
     /* سيلويت المئذنة والمسجد في خلفية الكارت */
@@ -284,16 +342,16 @@
       filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
     }
 
-    /* إطار صورة المتوفى الدائرية باللون الذهبي */
+    /* إطار صورة المتوفاة الدائرية باللون الذهبي */
     .deceased-photo-wrap {
       position: relative;
-      width: 128px;
-      height: 128px;
-      margin: 0 auto 1.5rem auto;
+      width: 165px;
+      height: 165px;
+      margin: 0.25rem auto 1.5rem auto;
       border-radius: 50%;
       padding: 4px;
       background: linear-gradient(145deg, var(--gold-300), var(--gold-600), var(--gold-400));
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 16px rgba(216, 183, 83, 0.3);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45), 0 0 16px rgba(216, 183, 83, 0.25);
     }
 
     .deceased-photo-inner {
@@ -313,14 +371,15 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center 20%;
+      border-radius: 50%;
       display: block;
-      transition: transform 0.3s ease;
     }
 
     .deceased-photo-inner .fallback-icon {
       display: none;
-      width: 60%;
-      height: 60%;
+      width: 55%;
+      height: 55%;
       color: var(--gold-300);
       opacity: 0.85;
     }
@@ -501,7 +560,7 @@
       width: 0%;
       background: linear-gradient(90deg, var(--gold-500), var(--gold-300));
       border-radius: 9999px;
-      transition: width 0.1s linear;
+      will-change: width;
       box-shadow: 0 0 10px rgba(216, 183, 83, 0.5);
     }
 
@@ -620,6 +679,7 @@
       overflow: hidden;
       text-align: center;
       margin-bottom: 1.5rem;
+      transform: translateZ(0);
     }
 
     /* اختيار الذكر (Dhikr Selector Pills) */
@@ -681,21 +741,22 @@
     .masbaha-svg {
       width: 100%;
       height: 100%;
-      filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.6));
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
       transform-origin: center center;
+      transform: translateZ(0);
       transition: transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
     /* خرزات السبحة */
     .bead {
-      transition: transform 0.25s ease, fill 0.25s ease, filter 0.25s ease;
+      transition: transform 0.15s ease, fill 0.15s ease;
       cursor: pointer;
       transform-origin: center center;
     }
 
     .bead.active {
-      filter: drop-shadow(0 0 10px #fde047) drop-shadow(0 0 4px #ffffff);
-      transform: scale(1.4);
+      filter: drop-shadow(0 0 6px #fde047);
+      transform: scale(1.35);
     }
 
     /* الزر والقرص الدائري في مركز السبحة */
@@ -767,11 +828,13 @@
       filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.5));
       font-variant-numeric: tabular-nums;
       margin-bottom: 0.35rem;
-      transition: transform 0.15s ease;
+      transition: transform 0.12s ease;
+      will-change: transform;
+      transform: translateZ(0);
     }
 
     .counter-value.pulse-pop {
-      transform: scale(1.1);
+      transform: scale(1.08) translateZ(0);
     }
 
     .counter-meta {
@@ -964,6 +1027,14 @@
       .navbar {
         height: 56px;
       }
+      .nav-install-btn {
+        left: 0.65rem;
+        padding: 0.3rem 0.55rem;
+        font-size: 0.78rem;
+      }
+      .nav-install-btn .install-text {
+        display: none;
+      }
       .memorial-card, .tasbeeh-card {
         padding: 1.6rem 1rem 1.35rem 1rem;
         border-radius: 18px;
@@ -977,8 +1048,8 @@
         font-size: 1.05rem;
       }
       .deceased-photo-wrap {
-        width: 108px;
-        height: 108px;
+        width: 140px;
+        height: 140px;
         margin-bottom: 1.25rem;
       }
       .dedication-box {
@@ -1076,8 +1147,8 @@
         font-size: 1.55rem;
       }
       .deceased-photo-wrap {
-        width: 96px;
-        height: 96px;
+        width: 120px;
+        height: 120px;
       }
       .dedication-text {
         font-size: 1.02rem;
@@ -1122,6 +1193,8 @@
   </style>
 </head>
 <body>
+  <!-- خلفية ثابتة خفيفة معزولة عتادياً بدون إعادة رسم أثناء التمرير -->
+  <div class="bg-fixed-canvas" aria-hidden="true"></div>
 
   <!-- ========================================================================
        شريط التنقل العلوي الثابت (Fixed Navbar)
@@ -1134,6 +1207,16 @@
       </button>
       <button id="nav-tasbeeh-btn" class="nav-btn" onclick="switchSection('tasbeeh')">
         التسبيح
+      </button>
+
+      <!-- زر تثبيت تطبيق الـ PWA (يظهر فقط إذا كان التطبيق قابلاً للتثبيت) -->
+      <button id="pwa-install-btn" class="nav-install-btn" onclick="handleInstallClick()" aria-label="تثبيت التطبيق على جهازك" title="تثبيت التطبيق على هاتفك أو حاسوبك">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="5" y="2" width="14" height="20" rx="3"></rect>
+          <path d="M12 18h.01"></path>
+          <path d="M12 7v6m0 0l-2.5-2.5M12 13l2.5-2.5"></path>
+        </svg>
+        <span class="install-text">تثبيت التطبيق</span>
       </button>
     </div>
   </nav>
@@ -1178,10 +1261,10 @@
           <!-- عنوان علوي بخط ذهبي زخرفي -->
           <h1 id="quran-heading" class="card-title">ختمة المصحف كاملة</h1>
 
-          <!-- صورة دائرية للمتوفى بإطار ذهبي في المنتصف -->
+          <!-- صورة دائرية للمتوفاة بإطار ذهبي في المنتصف -->
           <div class="deceased-photo-wrap">
             <div class="deceased-photo-inner">
-              <img id="deceased-image" src="" alt="صورة المتوفى" onerror="handleImageError(this)" />
+              <img id="deceased-image" src="/images/deceased.png" alt="صورة المرحومة بإذن الله الحاجة مسعودة عبدالحميد" onerror="handleImageError(this)" />
               <!-- أيقونة بديلة في حال عدم توفر صورة -->
               <svg id="deceased-fallback-icon" class="fallback-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 100-18 9 9 0 000 18z"></path>
@@ -1454,6 +1537,35 @@
   </div>
 
   <!-- ========================================================================
+       نافذة إرشاد التثبيت لمستخدمي أجهزة iOS (iPhone / iPad)
+       ======================================================================== -->
+  <div id="ios-install-modal" class="confirm-overlay" onclick="closeIosInstallModal(event)">
+    <div class="confirm-box" onclick="event.stopPropagation()">
+      <div style="display:flex; justify-content:center; margin-bottom:0.75rem;">
+        <div style="width:48px; height:48px; border-radius:50%; background:rgba(216,183,83,0.15); border:1px solid var(--border-gold); display:flex; align-items:center; justify-content:center; color:var(--gold-300);">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="5" y="2" width="14" height="20" rx="3"></rect>
+            <path d="M12 18h.01"></path>
+          </svg>
+        </div>
+      </div>
+      <h3 class="confirm-title" style="color:var(--gold-200); font-size:1.25rem;">تثبيت التطبيق على جهازك</h3>
+      <div style="text-align:right; font-size:0.92rem; color:#cbd5e1; line-height:1.75; margin-bottom:1.5rem;">
+        <p style="margin-bottom:0.65rem; color:#94a3b8;">لتثبيت الموقع كتطبيق مستقل على شاشة iPhone أو iPad:</p>
+        <div style="display:flex; align-items:flex-start; gap:0.65rem; margin-bottom:0.65rem; background:rgba(4,20,14,0.6); padding:0.65rem 0.85rem; border-radius:10px; border:1px solid rgba(216,183,83,0.2);">
+          <span style="background:rgba(216,183,83,0.25); border-radius:50%; width:22px; height:22px; display:inline-flex; align-items:center; justify-content:center; color:var(--gold-200); font-weight:700; font-size:0.8rem; flex-shrink:0;">١</span>
+          <span>اضغط على زر المشاركة <strong>(Share)</strong> <svg style="display:inline; vertical-align:middle;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg> في شريط متصفح Safari.</span>
+        </div>
+        <div style="display:flex; align-items:flex-start; gap:0.65rem; background:rgba(4,20,14,0.6); padding:0.65rem 0.85rem; border-radius:10px; border:1px solid rgba(216,183,83,0.2);">
+          <span style="background:rgba(216,183,83,0.25); border-radius:50%; width:22px; height:22px; display:inline-flex; align-items:center; justify-content:center; color:var(--gold-200); font-weight:700; font-size:0.8rem; flex-shrink:0;">٢</span>
+          <span>مرر للأسفل واختر <strong>إضافة إلى الشاشة الرئيسية (Add to Home Screen)</strong>.</span>
+        </div>
+      </div>
+      <button class="confirm-btn-no" style="width:100%; font-weight:700;" onclick="closeIosInstallModal()">فهمت ذلك</button>
+    </div>
+  </div>
+
+  <!-- ========================================================================
        الكود البرمجي (Vanilla JavaScript)
        ======================================================================== -->
   <script>
@@ -1468,9 +1580,9 @@
     // صيغة الترحم والدعاء الإضافي
     const DECEASED_DUA = "اللهم اغفر لها وارحمها وعافها واعف عنها وأكرم نزلها، واجعل قبرها روضة من رياض الجنة";
 
-    // رابط صورة المتوفى (يمكنك وضع رابط صورة المتوفى المباشر هنا)
-    // إذا تركت الرابط فارغًا أو لم تعمل الصورة، ستظهر أيقونة إسلامية وقورة تلقائيًا
-    const DECEASED_IMAGE_URL = "";
+    // رابط ومسار صورة المتوفاة رحمها الله (يمكنك تغيير مسار الصورة بسهولة مستقبلاً من هنا)
+    const deceasedImage = "/images/deceased.png";
+    const DECEASED_IMAGE_URL = deceasedImage;
 
     // اسم القارئ للختمة
     const RECITER_NAME = "الشيخ مشاري بن راشد العفاسي";
@@ -1675,6 +1787,8 @@
     let isAudioPlaying = false;
     let tasbeehCount = 0;
     let activeBeadIndex = 0;
+    let previousActiveBeadIndex = -1;
+    let beadElements = []; // Cache مراجع خرزات الـ SVG لتسريع التحديث
     let isClickSoundEnabled = true;
     let audioContext = null;
 
@@ -1729,6 +1843,9 @@
 
       // 7. إعداد مستمعي أحداث مشغل الصوت
       setupAudioEventListeners();
+
+      // 8. فحص وتحديث حالة زر تثبيت الـ PWA
+      updateInstallButton();
     });
 
     // معالجة صورة المتوفى في حال عدم وجودها أو تعذر تحميلها
@@ -1740,7 +1857,7 @@
 
     /* ==========================================================================
        4. التنقل بين قسم الختمة وقسم التسبيح (Tab Navigation)
-       شريط التنقل ثابت في الأعلى وفيه كلمتان فقط
+       تنقل فوري وسلس بدون Forced Reflow
        ========================================================================== */
     function switchSection(target) {
       const quranNavBtn = document.getElementById('nav-quran-btn');
@@ -1749,28 +1866,27 @@
       const tasbeehSection = document.getElementById('section-tasbeeh');
 
       if (target === 'quran') {
+        if (quranNavBtn.classList.contains('active')) return;
         quranNavBtn.classList.add('active');
         tasbeehNavBtn.classList.remove('active');
         
         tasbeehSection.classList.remove('active');
-        setTimeout(() => {
-          tasbeehSection.style.display = 'none';
-          quranSection.style.display = 'block';
-          // إجبار المتصفح على قراءة التغيير قبل تطبيق الأوباسيتي للتلاشي السلس
-          void quranSection.offsetWidth;
+        tasbeehSection.style.display = 'none';
+        quranSection.style.display = 'block';
+        requestAnimationFrame(() => {
           quranSection.classList.add('active');
-        }, 150);
+        });
       } else {
+        if (tasbeehNavBtn.classList.contains('active')) return;
         tasbeehNavBtn.classList.add('active');
         quranNavBtn.classList.remove('active');
 
         quranSection.classList.remove('active');
-        setTimeout(() => {
-          quranSection.style.display = 'none';
-          tasbeehSection.style.display = 'block';
-          void tasbeehSection.offsetWidth;
+        quranSection.style.display = 'none';
+        tasbeehSection.style.display = 'block';
+        requestAnimationFrame(() => {
           tasbeehSection.classList.add('active');
-        }, 150);
+        });
       }
     }
 
@@ -1882,11 +1998,18 @@
 
     // إعداد مستمعي أحداث مشغل الصوت
     function setupAudioEventListeners() {
+      let isProgressUpdating = false;
       audioEl.addEventListener('timeupdate', () => {
-        if (!audioEl.duration) return;
-        const percent = (audioEl.currentTime / audioEl.duration) * 100;
-        progressBarFill.style.width = `${percent}%`;
-        audioCurrentTime.textContent = formatTime(audioEl.currentTime);
+        if (!audioEl.duration || isProgressUpdating) return;
+        isProgressUpdating = true;
+        requestAnimationFrame(() => {
+          if (audioEl.duration) {
+            const percent = (audioEl.currentTime / audioEl.duration) * 100;
+            progressBarFill.style.width = `${percent}%`;
+            audioCurrentTime.textContent = formatTime(audioEl.currentTime);
+          }
+          isProgressUpdating = false;
+        });
       });
 
       audioEl.addEventListener('loadedmetadata', () => {
@@ -1919,7 +2042,7 @@
       });
 
       audioEl.addEventListener('error', () => {
-        playerStatusText.textContent = 'تعذر تحميل المقطع';
+        playerStatusText.textContent = navigator.onLine ? 'تعذر تحميل المقطع' : 'يتطلب اتصالاً بالإنترنت';
       });
     }
 
@@ -1938,10 +2061,11 @@
        ========================================================================== */
     const TOTAL_BEADS = 33; // عدد خرزات السبحة
 
-    // بناء خرزات الـ SVG في دائرة متناسقة
+    // بناء خرزات الـ SVG في دائرة متناسقة وتخزين مراجعها (Cache)
     function buildMasbahaBeads() {
       const beadsGroup = document.getElementById('beads-group');
       beadsGroup.innerHTML = '';
+      beadElements = [];
       const radius = 118; // نصف قطر الدائرة
       const centerX = 150;
       const centerY = 150;
@@ -1965,7 +2089,47 @@
         circle.setAttribute('id', `bead-${i}`);
 
         beadsGroup.appendChild(circle);
+        beadElements.push(circle);
       }
+      previousActiveBeadIndex = -1;
+    }
+
+    // تحديث خرزة واحدة فقط عند الضغط بدل إعادة فحص وتعديل الـ 33 خرزة
+    function updateBeadHighlight(newIndex, isFullReset = false) {
+      if (isFullReset) {
+        for (let i = 0; i < TOTAL_BEADS; i++) {
+          const b = beadElements[i];
+          if (!b) continue;
+          const isDivider = (i % 11 === 0 && i !== 0);
+          if (i === newIndex) {
+            b.setAttribute('fill', 'url(#activeBeadGrad)');
+            b.classList.add('active');
+          } else {
+            b.setAttribute('fill', isDivider ? 'url(#goldBeadGrad)' : 'url(#beadGrad)');
+            b.classList.remove('active');
+          }
+        }
+        previousActiveBeadIndex = newIndex;
+        return;
+      }
+
+      // إطفاء الخرزة السابقة فقط
+      if (previousActiveBeadIndex >= 0 && previousActiveBeadIndex < TOTAL_BEADS && previousActiveBeadIndex !== newIndex) {
+        const prevBead = beadElements[previousActiveBeadIndex];
+        if (prevBead) {
+          const isDivider = (previousActiveBeadIndex % 11 === 0 && previousActiveBeadIndex !== 0);
+          prevBead.setAttribute('fill', isDivider ? 'url(#goldBeadGrad)' : 'url(#beadGrad)');
+          prevBead.classList.remove('active');
+        }
+      }
+
+      // إضاءة الخرزة الحالية فقط
+      const currentBead = beadElements[newIndex];
+      if (currentBead) {
+        currentBead.setAttribute('fill', 'url(#activeBeadGrad)');
+        currentBead.classList.add('active');
+      }
+      previousActiveBeadIndex = newIndex;
     }
 
     // استعادة العداد من LocalStorage
@@ -1974,11 +2138,12 @@
         const saved = localStorage.getItem('deceased_tasbeeh_count');
         if (saved !== null) {
           tasbeehCount = parseInt(saved, 10) || 0;
+          activeBeadIndex = tasbeehCount % TOTAL_BEADS;
         }
       } catch (e) {
         console.warn('LocalStorage not accessible', e);
       }
-      updateTasbeehUI(false);
+      updateTasbeehUI(false, true);
     }
 
     // الضغط للتسبيح وزيادة العداد
@@ -2001,15 +2166,15 @@
       // تشغيل صوت نقرة الخرزة
       playBeadClickSound();
 
-      // تحديث الواجهة وتأثير حركة الخرزة
-      updateTasbeehUI(true);
+      // تحديث الواجهة وتأثير حركة الخرزة الواحدة فقط
+      updateTasbeehUI(true, false);
 
       // فحص الاحتفال عند مضاعفات 33 أو 100
       checkCelebrationMilestones();
     }
 
     // تحديث واجهة التسبيح
-    function updateTasbeehUI(triggerPop = false) {
+    function updateTasbeehUI(triggerPop = false, isFullReset = false) {
       tasbeehCounterEl.textContent = tasbeehCount.toLocaleString('ar-EG');
       
       const currentLap = Math.floor(tasbeehCount / TOTAL_BEADS) + 1;
@@ -2021,20 +2186,11 @@
         tasbeehCounterEl.classList.add('pulse-pop');
         setTimeout(() => {
           tasbeehCounterEl.classList.remove('pulse-pop');
-        }, 150);
+        }, 120);
       }
 
-      // تحريك وإضاءة الخرزة النشطة
-      document.querySelectorAll('.bead').forEach((b, idx) => {
-        if (idx === activeBeadIndex) {
-          b.setAttribute('fill', 'url(#activeBeadGrad)');
-          b.classList.add('active');
-        } else {
-          const isDivider = (idx % 11 === 0 && idx !== 0);
-          b.setAttribute('fill', isDivider ? 'url(#goldBeadGrad)' : 'url(#beadGrad)');
-          b.classList.remove('active');
-        }
-      });
+      // تحديث مظهر الخرزة المستهدفة فقط
+      updateBeadHighlight(activeBeadIndex, isFullReset);
     }
 
     // تغيير الذكر الحالي
@@ -2137,7 +2293,7 @@
       try {
         localStorage.setItem('deceased_tasbeeh_count', '0');
       } catch (e) {}
-      updateTasbeehUI(true);
+      updateTasbeehUI(true, true);
       resetModal.classList.remove('show');
     }
 
@@ -2148,6 +2304,134 @@
         incrementTasbeeh();
       }
     });
+
+    /* ==========================================================================
+       8. وظائف وتثبيت تطبيق الـ PWA وتسجيل الـ Service Worker
+       ========================================================================== */
+    let deferredPrompt = null;
+    const pwaInstallBtn = document.getElementById('pwa-install-btn');
+    const iosInstallModal = document.getElementById('ios-install-modal');
+
+    // التحقق هل التطبيق مثبت ويعمل في وضع Standalone المستقل
+    function isAppInstalled() {
+      return window.matchMedia('(display-mode: standalone)').matches ||
+             window.navigator.standalone === true ||
+             document.referrer.includes('android-app://');
+    }
+
+    // التحقق هل الجهاز بنظام iOS (Safari)
+    function isIosDevice() {
+      const ua = window.navigator.userAgent.toLowerCase();
+      return /iphone|ipad|ipod/.test(ua) && !window.MSStream;
+    }
+
+    // إدارة ظهور وحالة زر التثبيت بدقة وبدون وميض
+    function updateInstallButton() {
+      if (!pwaInstallBtn) return;
+
+      // إذا كان التطبيق مثبتًا بالفعل، نخفي الزر تمامًا
+      if (isAppInstalled()) {
+        pwaInstallBtn.style.display = 'none';
+        return;
+      }
+
+      // إذا توفر حدث التثبيت البرمجي الأصلي (Chrome / Edge / Android)
+      if (deferredPrompt) {
+        pwaInstallBtn.style.display = 'inline-flex';
+        return;
+      }
+
+      // إذا كان الجهاز iOS والمتصفح Safari والتطبيق غير مثبت
+      if (isIosDevice() && !isAppInstalled()) {
+        pwaInstallBtn.style.display = 'inline-flex';
+        return;
+      }
+
+      pwaInstallBtn.style.display = 'none';
+    }
+
+    // التقاط حدث جاهزية التثبيت للمتصفح
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      updateInstallButton();
+    });
+
+    // عند اكتمال التثبيت بنجاح
+    window.addEventListener('appinstalled', () => {
+      deferredPrompt = null;
+      updateInstallButton();
+      console.log('تم تثبيت التطبيق بنجاح (PWA Installed)');
+    });
+
+    // الضغط على زر التثبيت في شريط التنقل
+    function handleInstallClick() {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            console.log('وافق المستخدم على تثبيت التطبيق');
+          } else {
+            console.log('تراجع المستخدم عن تثبيت التطبيق');
+          }
+          deferredPrompt = null;
+          updateInstallButton();
+        }).catch((err) => {
+          console.warn('Install prompt error:', err);
+          deferredPrompt = null;
+          updateInstallButton();
+        });
+      } else if (isIosDevice()) {
+        openIosInstallModal();
+      }
+    }
+
+    // نافذة إرشاد التثبيت على iOS
+    function openIosInstallModal() {
+      if (iosInstallModal) iosInstallModal.classList.add('show');
+    }
+
+    function closeIosInstallModal(e) {
+      if (!e || e.target === iosInstallModal || e.target.tagName === 'BUTTON') {
+        if (iosInstallModal) iosInstallModal.classList.remove('show');
+      }
+    }
+
+    // مراقبة تغير وضع العرض إلى standalone في أي وقت
+    try {
+      window.matchMedia('(display-mode: standalone)').addEventListener('change', () => {
+        updateInstallButton();
+      });
+    } catch (e) {}
+
+    // تسجيل الـ Service Worker بالنطاق الجذري
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js', { scope: '/' })
+          .then((reg) => {
+            console.log('Service Worker مسجل بنجاح، النطاق:', reg.scope);
+            
+            // مراقبة توفر تحديثات جديدة
+            reg.onupdatefound = () => {
+              const installingWorker = reg.installing;
+              if (installingWorker) {
+                installingWorker.onstatechange = () => {
+                  if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                    console.log('يتوفر تحديث جديد للموقع سيتم تطبيقه في الزيارة التالية');
+                  }
+                };
+              }
+            };
+          })
+          .catch((err) => {
+            // محاولة تسجيل المسار البديل إذا لزم الأمر
+            navigator.serviceWorker.register('/service-worker.js', { scope: '/' })
+              .catch((err2) => {
+                console.warn('تعذر تسجيل Service Worker:', err2);
+              });
+          });
+      });
+    }
   </script>
   <div id="root" style="display:none;" aria-hidden="true"></div>
 </body>
