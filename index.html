@@ -150,12 +150,12 @@
 
     .nav-container {
       width: 100%;
-      max-width: 480px;
-      padding: 0 1.25rem;
+      max-width: 600px;
+      padding: 0 1rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 2rem;
+      gap: 1.5rem;
       position: relative;
     }
 
@@ -165,20 +165,25 @@
       left: 1rem;
       display: none;
       align-items: center;
-      gap: 0.4rem;
-      background: rgba(216, 183, 83, 0.14);
+      gap: 0.45rem;
+      background: rgba(216, 183, 83, 0.16);
       border: 1px solid var(--border-gold);
       color: var(--gold-200);
       border-radius: 9999px;
       padding: 0.35rem 0.85rem;
       font-family: var(--font-body);
-      font-size: 0.85rem;
+      font-size: 0.86rem;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.2s ease;
       outline: none;
       white-space: nowrap;
       z-index: 10;
+    }
+
+    .nav-install-btn .install-text {
+      display: inline-block;
+      line-height: 1;
     }
 
     .nav-install-btn:hover {
@@ -1025,15 +1030,28 @@
         padding-right: 0.75rem;
       }
       .navbar {
-        height: 56px;
+        height: 58px;
+      }
+      .nav-container {
+        padding: 0 0.5rem;
+        gap: 0.85rem;
+      }
+      .nav-btn {
+        font-size: 1.18rem;
+        padding: 0.35rem 0.65rem;
       }
       .nav-install-btn {
-        left: 0.65rem;
-        padding: 0.3rem 0.55rem;
+        left: 0.5rem;
+        padding: 0.28rem 0.6rem;
         font-size: 0.78rem;
+        gap: 0.35rem;
+      }
+      .nav-install-btn svg {
+        width: 15px;
+        height: 15px;
       }
       .nav-install-btn .install-text {
-        display: none;
+        display: inline-block;
       }
       .memorial-card, .tasbeeh-card {
         padding: 1.6rem 1rem 1.35rem 1rem;
@@ -1134,11 +1152,25 @@
         padding-right: 0.5rem;
       }
       .nav-container {
-        gap: 1rem;
+        gap: 0.5rem;
+        padding: 0 0.35rem;
       }
       .nav-btn {
-        font-size: 1.15rem;
-        padding: 0.35rem 0.75rem;
+        font-size: 1.05rem;
+        padding: 0.3rem 0.45rem;
+      }
+      .nav-install-btn {
+        left: 0.35rem;
+        padding: 0.22rem 0.45rem;
+        font-size: 0.72rem;
+        gap: 0.25rem;
+      }
+      .nav-install-btn svg {
+        width: 13px;
+        height: 13px;
+      }
+      .nav-install-btn .install-text {
+        display: inline-block;
       }
       .memorial-card, .tasbeeh-card {
         padding: 1.35rem 0.75rem 1.15rem 0.75rem;
@@ -1210,13 +1242,13 @@
       </button>
 
       <!-- زر تثبيت تطبيق الـ PWA (يظهر فقط إذا كان التطبيق قابلاً للتثبيت) -->
-      <button id="pwa-install-btn" class="nav-install-btn" onclick="handleInstallClick()" aria-label="تثبيت التطبيق على جهازك" title="تثبيت التطبيق على هاتفك أو حاسوبك">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <button id="pwa-install-btn" class="nav-install-btn" onclick="handleInstallClick()" aria-label="تثبيت البرنامج على جهازك" title="تثبيت البرنامج على هاتفك أو حاسوبك">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <rect x="5" y="2" width="14" height="20" rx="3"></rect>
           <path d="M12 18h.01"></path>
           <path d="M12 7v6m0 0l-2.5-2.5M12 13l2.5-2.5"></path>
         </svg>
-        <span class="install-text">تثبيت التطبيق</span>
+        <span class="install-text">تثبيت البرنامج</span>
       </button>
     </div>
   </nav>
